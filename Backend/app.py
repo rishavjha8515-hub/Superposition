@@ -31,3 +31,51 @@ def compute_L(nu2: float = 2.0) -> float:
             return math.pi * u / (2*A)
         if u > 30:
             return u * math.exp(-2 * math.pi *u)
+        s = math.sinh(math.pi * u)
+        Ttu = (s * s)/(s * s + A)
+        bose = 1.0/(math.exp(2 * math.pi * u) -1)
+        return u * Ttu * bose
+    
+    result, _ = integrate.quad(integrand, 0, np.inf, limit=200)
+    return result
+
+def nu2_from_q(q: float) -> float:
+    return 2.0 + 0.50 * alpha *alpha
+
+def decoherence_time(q: float) -> float:
+    kapp = kappa_from_q(q)
+    nu2 = nu2_from_q(q)
+    L = compute_L(nu2)
+    Ck = L * kappa
+
+    A = math.cosh(math.pi * math.sqrt(nu2 - 0.25)) ** 2
+    Ttilde = pt_transmission(1.0, A)
+
+    TH = kappa / (2 * math.pi) if kappa > 0 else 0.0
+
+    return {
+        "kappa": round(kappa, 6),
+        "L": round(L,  8),
+        "C_Kappa": round(Ck,  10),
+        "T_tilde": round(Ttilde  6),
+        "T_Hawking": round(TH,  8),
+         "nu2":round(nu2,   4),
+         "q":round(q,   4),
+         "alpha":round(alpha,  3),
+    }
+
+SCENES = [
+    {
+        "id": 1,
+        "label": "Scene 1 - The Approach",
+        "text": (
+            "You are a photon falling toward a near-extremal Reissner-Nordström Blackhole."
+            "The Universe grows very quiet here.Surface gravity(k) goes to zero."
+            "Your decohernce, your loss of quantum self, is suppressed."
+            "The horizon is a perfect shield."
+        ),
+        "choices": [
+            {"id": "meissner",}
+        ]
+    }
+]
