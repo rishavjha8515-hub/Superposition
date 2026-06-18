@@ -72,10 +72,47 @@ SCENES = [
             "You are a photon falling toward a near-extremal Reissner-Nordström Blackhole."
             "The Universe grows very quiet here.Surface gravity(k) goes to zero."
             "Your decohernce, your loss of quantum self, is suppressed."
-            "The horizon is a perfect shield."
+            "The horizon is a perfect shield.This is the [[Meissner Gap]]"
         ),
+        "physics_callouts":{
+            "Surface Gravity k": "k = 2[1-q^2]^(1/2).As q approaches 1,k approaches zero.The black hole's graviataional 'Temperature' vanishes'',
+            "Meissner Gap": "Near Extremality,decoherence rate C(K)=L*Kappa with L=2.1895*10^(-4).Quantum cohernce is prserved close to the horizon."
+        },
         "choices": [
-            {"id": "meissner",}
-        ]
-    }
+            {"id": "approach_slow", "label":"Slow your descent.Stay coherent as long as possible."."next_scene":2},
+            {"id":"approach_fast", "label":"Dive in.Embrace the horizon.", "next scene":3},
+        ],
+    },
+
+    {
+        "id":2,
+        "label":"Scene 2A-The Quiet Zone ",
+        "act":1,
+        "text":(
+            "You Hover at the edge of the [[ergosphere analogue]],where time itself seems to pause."
+            "[[Hawking radiation]] whispers past you-but at near zero temperature."
+            "The quanta around you remians entangled.You are still whole."
+        ),
+        "physics callouts": {
+            "ergosphere analogue": (
+                "In RN spacetime,there is no ergosphere,but near-extremal charge creates an analogue"
+                "trappng zone where outgoing radiation is heavily suppressed."
+            ),
+            "Hawking radiation": (
+                "T_H = k/2pi.At extremality,k approaches zero, so T_H approaches zero."
+                "The black hole stops radiating.Quantum Information is frozen at the horizon."
+            ),
+        },
+            [
+                {"id": "observe_radiation", "label":"Observe the faint Hawking quanta escaping.", "next_scene":4},
+                {"id": "probe_horizon", "label":"Probe the structure of the horizon itself.", "next_scene":5},
+            ],
+        },
+        {
+            "id":3,
+            "label":"Scene 2B - Freefall",
+            "act": 1,
+            "text": (
+                "The Horizon rushes toward you. In your refrence frame,nothing dramatic happens."
+        }
 ]
