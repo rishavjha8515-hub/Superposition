@@ -113,6 +113,130 @@ SCENES = [
             "label":"Scene 2B - Freefall",
             "act": 1,
             "text": (
-                "The Horizon rushes toward you. In your refrence frame,nothing dramatic happens."
-        }
+                "The Horizon rushes toward you. In your refrence frame,nothing dramatic happens -"
+                "the [[equivalence principle]] holds.But your [[decohernce rate]] C(k) is climbing."
+                "The further from extremality your trajectory takes you,the more the environment reads you."
+        ),
+        "physics_callouts": {
+            "equivalence principle": (
+                "A freely falling observer experiences no local gravity."
+                "The horizon crossing is smooth,NO FIREWALL(in the classical picture)."
+            ),
+            "decoherence rate": (
+                "C(k) = L * kappa. Away from extremality kappa grows, and with it the rate at which"
+                "your quantum state leaks into the environment."
+            ),
+        },
+        "choices": [
+            {"id": "resist_decohernce", "label":"Fight to maintain coherence.Encode yourself in a surface code.", "next_scene":6},
+            {"id": "embrace_decohernce","label":"Let go.Become classical." "next_scene":7},
+        ],
+        },
+        {
+            "id":4,
+            "label":"Scene 3A - The Radiation Archive",
+             "act": 2,
+             "text": (
+                 "The Hawking quanta carry faint imprints- [[soft hair]] on the horizon."
+                 "Each escaping photon is entangled with a partner trapped inside."
+                 "You begin to read the archive.The information all here, encoded in [[Page time]] correlations."
+                 "But something is off.One channel is missing."
+             ),
+              "physics_callouts": {
+            "soft hair": (
+                "Soft photons and gravitons near the horizon carry quantum information as conserved charges "
+                "(Hawking-Perry-Strominger). They are the horizon's memory."
+            ),
+            "Page time": (
+                "After the Page time (~half the black hole's lifetime), the Hawking radiation begins to carry out "
+                "more information than it leaves behind. Unitarity is restored — in principle."
+            ),
+        },
+        "choices": [
+            {"id": "find_channel",  "label": "Search for the missing decoherence channel.", "next_scene": 8},
+            {"id": "trust_archive", "label": "Trust the archive. Information is conserved.", "next_scene": 9},
+        ],
+    },
+ 
+    {
+        "id": 5,
+        "label": "Scene 3B — Horizon Geometry",
+        "act": 2,
+        "text": (
+            "The horizon is not a surface — it is a [[stretched horizon]], a membrane of quantum degrees of freedom. "
+            "You feel the [[near-horizon geometry]]: AdS₂ × S². "
+            "In this throat, time is redshifted almost to a stop. "
+            "Your wavefunction spreads across the entire membrane."
+        ),
+        "physics_callouts": {
+            "stretched horizon": (
+                "The stretched horizon (Susskind et al.) is a membrane one Planck length outside the true horizon "
+                "that encodes all infalling information as thermal fluctuations."
+            ),
+            "near-horizon geometry": (
+                "Extremal RN has a near-horizon limit of AdS₂ × S². This throat geometry is the arena for the "
+                "Meissner suppression — the AdS₂ factor freezes low-frequency modes."
+            ),
+        },
+        "choices": [
+            {"id": "enter_throat", "label": "Descend into the AdS₂ throat.",         "next_scene": 10},
+            {"id": "pull_back",    "label": "Retreat before the geometry traps you.", "next_scene": 4},
+        ],
+    },
+ 
+    {
+        "id": 6,
+        "label": "Scene 3C — The Surface Code",
+        "act": 2,
+        "text": (
+            "You encode your quantum state into a [[stabiliser code]] — logical qubits spread across the horizon's "
+            "Planck-scale tiles. The environment can measure individual tiles, but the logical information survives. "
+            "For now. The [[code distance]] d buys you time, not immortality."
+        ),
+        "physics_callouts": {
+            "stabiliser code": (
+                "Surface codes encode one logical qubit in a 2D array of physical qubits. Errors on individual "
+                "qubits are detectable without disturbing the logical state — the basis of fault-tolerant quantum computing."
+            ),
+            "code distance": (
+                "d = minimum number of errors needed to corrupt the logical qubit. "
+                "Decoherence time scales as (p_error)^(d/2). Larger d = longer coherence, but more qubits needed."
+            ),
+        },
+        "choices": [
+            {"id": "increase_distance", "label": "Expand the code. Increase d at the cost of spreading thinner.", "next_scene": 11},
+            {"id": "hold_distance",     "label": "Hold at current d. Conserve your resources.",                   "next_scene": 8},
+        ],
+    },
+ 
+    {
+        "id": 7,
+        "label": "Scene 3D — Classical Dissolution",
+        "act": 2,
+        "text": (
+            "Your off-diagonal density matrix elements — your [[coherences]] — decay to zero. "
+            "You are now a probability distribution, not a wavefunction. "
+            "The [[pointer basis]] has been selected. You know which path you took. "
+            "But you have lost the ability to interfere with yourself. "
+            "Is this death, or just a change of description?"
+        ),
+        "physics_callouts": {
+            "coherences": (
+                "The off-diagonal elements ρ_ij (i≠j) of the density matrix encode quantum superposition. "
+                "Decoherence drives them to zero, leaving a classical probability distribution on the diagonal."
+            ),
+            "pointer basis": (
+                "The basis selected by decoherence — the one that survives environmental monitoring. "
+                "Macroscopic objects decohere into position eigenstates; this is why cats are alive or dead, not both."
+            ),
+            "quantum Zeno effect": (
+                "Frequent measurement of a quantum system can freeze its evolution. "
+                "If you 'look at yourself' fast enough, decoherence slows — but each measurement has a cost."
+            ),
+        },
+        "choices": [
+            {"id": "accept_classical", "label": "Accept the classical description. Follow your definite path.",  "next_scene": 12},
+            {"id": "fight_back",       "label": "Reject it. Invoke the [[quantum Zeno effect]].",                "next_scene": 6},
+        ],
+    },
 ]
