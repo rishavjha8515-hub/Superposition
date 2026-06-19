@@ -2,8 +2,8 @@ from flask import Flask,jsonify,request
 from flask_cors import CORS 
 import numpy as np
 from scipy import integrate
-from uuid import math
-from scenes import SCENES
+from uuid 
+import math
 
 app = Flask(__name__)
 CORS(app)
@@ -40,12 +40,12 @@ def compute_L(nu2: float = 2.0) -> float:
     result, _ = integrate.quad(integrand, 0, np.inf, limit=200)
     return result
 
-def nu2_from_q(q: float) -> float:
-    return 2.0 + 0.50 * alpha *alpha
+def nu2_from_q(q: float, alpha: float) -> float:
+    return 2.0 + 0.50 * alpha * alpha
 
-def decoherence_time(q: float) -> float:
-    kapp = kappa_from_q(q)
-    nu2 = nu2_from_q(q)
+def decoherence_time(q: float, alpha: float) -> float:
+    kappa = kappa_from_q(q)
+    nu2 = nu2_from_q(q, alpha)
     L = compute_L(nu2)
     Ck = L * kappa
 
@@ -58,7 +58,7 @@ def decoherence_time(q: float) -> float:
         "kappa": round(kappa, 6),
         "L": round(L,  8),
         "C_Kappa": round(Ck,  10),
-        "T_tilde": round(Ttilde  6),
+        "T_tilde": round(Ttilde,  6),
         "T_Hawking": round(TH,  8),
          "nu2":round(nu2,   4),
          "q":round(q,   4),
@@ -76,12 +76,12 @@ SCENES = [
             "The horizon is a perfect shield.This is the [[Meissner Gap]]"
         ),
         "physics_callouts":{
-            "Surface Gravity k": "k = 2[1-q^2]^(1/2).As q approaches 1,k approaches zero.The black hole's graviataional 'Temperature' vanishes'',
+            "Surface Gravity k": "k = 2[1-q^2]^(1/2).As q approaches 1,k approaches zero.The black hole's graviataional 'Temperature' vanishes''",
             "Meissner Gap": "Near Extremality,decoherence rate C(K)=L*Kappa with L=2.1895*10^(-4).Quantum cohernce is prserved close to the horizon."
         },
         "choices": [
-            {"id": "approach_slow", "label":"Slow your descent.Stay coherent as long as possible."."next_scene":2},
-            {"id":"approach_fast", "label":"Dive in.Embrace the horizon.", "next scene":3},
+            {"id": "approach_slow", "label":"Slow your descent.Stay coherent as long as possible.","next_scene":2},
+            {"id":"approach_fast", "label":"Dive in.Embrace the horizon.", "next_scene":3},
         ],
     },
 
@@ -94,7 +94,7 @@ SCENES = [
             "[[Hawking radiation]] whispers past you-but at near zero temperature."
             "The quanta around you remians entangled.You are still whole."
         ),
-        "physics callouts": {
+        "physics_callouts": {
             "ergosphere analogue": (
                 "In RN spacetime,there is no ergosphere,but near-extremal charge creates an analogue"
                 "trappng zone where outgoing radiation is heavily suppressed."
@@ -104,7 +104,7 @@ SCENES = [
                 "The black hole stops radiating.Quantum Information is frozen at the horizon."
             ),
         },
-            [
+          "choices": [
                 {"id": "observe_radiation", "label":"Observe the faint Hawking quanta escaping.", "next_scene":4},
                 {"id": "probe_horizon", "label":"Probe the structure of the horizon itself.", "next_scene":5},
             ],
@@ -130,7 +130,7 @@ SCENES = [
         },
         "choices": [
             {"id": "resist_decohernce", "label":"Fight to maintain coherence.Encode yourself in a surface code.", "next_scene":6},
-            {"id": "embrace_decohernce","label":"Let go.Become classical." "next_scene":7},
+            {"id": "embrace_decohernce","label":"Let go.Become classical.", "next_scene":7},
         ],
         },
         {
@@ -328,7 +328,7 @@ SCENES = [
             "As your spread your code across the horizon,you notice the black hole is spinning."
             "This is not Reissner-Nordström.It is [[Kerr-Newman]]."
             "The spin parameter a couples to your code's logical operators."
-            "L_KN = 9.211*10^(-3).A different co-efficient.Smaller."
+            "L_KN = 9.211*10^(-5).A different co-efficient.Smaller."
             "The Meissner suppression is even stronger for a spinning extremal black hole."
             "Your code is more protected here than anywhere in the universe."
         ),
@@ -425,7 +425,69 @@ SCENES = [
             "[ENDING: The Horizon Remnant - Extremality is eternal."
             "The Meissner Gap protected you forever at the cost of forever.]"
         ),
-        "physics_category":{},
+        "physics_callouts":{},
         "choices": [],
     },
 ]
+
+@app.route("/api/physics", methods=["POST"])
+def physics():
+    """Return decoherence data for a given charge ratio q (and optimal alpha)."""
+    data = request.get_json(force=True)
+    q = float(data.get("q", 0.99))
+    alpha = float(data.get("alpha", 0.0))
+
+    if not (0.0 <= q <= 1.0):
+        return jsonify({"error": "q must be in [0,1]"}), 400
+    
+    return jsonify(decoherence_time(q, alpha))
+
+@app.route("/api/scenes", methods=["GET"])
+def get_scenes():
+    "Return all scene definitions."
+    return jsonify(SCENES)
+
+@app.route("/api/scenes/<int:scene_id>", methods=["GET"])
+def get_scene(scene_id):
+    scene = next((s for s in SCENES if s["id"] == scene_id), None)
+    if scene is None:
+        return jsonify({"error": "Scene not found"}), 404
+    return jsonify(scene)
+
+@app.route("/api/session", methods=["POST"])
+def create_session():
+    """Start a new game session."""
+    import uuid 
+    session_id = str(uuid.uuid4())
+    sessions[session_id] = {"current_scene": 1, "history": []}
+    return jsonify({"session_id": session_id, "current_scene": 1})
+
+@app.route("/api/session/<session_id>/choose", methods=["POST"])
+def make_choice(session_id):
+    """Advance the session based on a choice id."""
+    if session_id not in sessions:
+        return jsonify({"error": "Session not found"}), 404
+    
+    data = request.get_json(force=True)
+    choice_id = data.get("choice_id")
+    session = sessions[session_id]
+    current = next((s for s in SCENES if s["id"] == session["current_scene"]), None)
+
+    if current is None:
+        return jsonify({"error": "Invalid scene state"}), 500
+    
+    choice = next((c for c in current["choices"] if c["id"] == choice_id), None)
+    if choice is None:
+        return jsonify({"error": f"Unknown choice '{choice_id}'"}), 400
+    
+    session["history"].append(session["current_scene"])
+    session["current_scene"] = choice.get("next_scene", session["current_scene"])
+
+    return jsonify({
+        "session_id": session_id,
+        "current_scene": session["current_scene"],
+        "history": session["history"],
+    })
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
