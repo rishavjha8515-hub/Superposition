@@ -239,4 +239,83 @@ SCENES = [
             {"id": "fight_back",       "label": "Reject it. Invoke the [[quantum Zeno effect]].",                "next_scene": 6},
         ],
     },
+    {
+       "id": 8,
+       "label": "Scene 4A - The Missing Channel",
+       "act": 3,
+       "text": (
+           "You find it.A third decohernce channel- neither gravitational nor electromagnetic -"
+           "arising from [[quantum vaccum fluctuations]] in the AdS Throat."
+           "My paper only considered two.This one is smaller,but at extremality it dominates."
+           "The [[Meissner suppression]] is even stronger than I calculated."
+       ),
+       "physics_callouts":{
+           "quantum vaccum fluctuations":(
+               "Zero-point fluctuations of quantum fields contribute to decohernce even at T=0."
+               "Near extremality,the thermal channel shuts off,making vaccum contributions relatively dominant."
+           ),
+           "Meissner supression": (
+               "C(k): L*kappa with L= 2.1895*10^(-4).The suppression is linear in k near extremality-"
+               "the horizon acts like a superconductor expelling decohernce."
+           ),
+       },
+       "choices":[
+           {"id": "integrate_channel", "label": "Integrate the new channel into your framework.", "next_scene":13},
+             {"id": "ignore_channel",    "label": "The correction is small. Press on.","next_scene":9},
+       ],
+    },
+    {
+        "id":9,
+        "label": "Scene 4B - Information Paradox",
+        "act": 3,
+        "text": (
+            "You reach the crux.The black hole is evaporating.Your infomation -your quantum state-"
+            "is either destroyed ([[Hawking's original claim]]) or encoded in the radiation([[unitarity]])."
+            "The Meissner Gap cahnges the calculation.Near extremality, evaporation nearly stops."
+            "Your information lingers at the horizon,neither lost or retrieved."
+            "A third option.A quantum purgatory."
+        ),
+        "physics_callouts":{
+            "Hawking's original claim": (
+                "In Hawking's 1975 calculation,black hole evaporationis exactly thermal i.e no inormation escapes."
+                "This violates quantum unitarity:pure states cannot evolve into mixed states."
+            ),
+            "unitarity":(
+                "Quantum mechanics demands that the total information in a closed system is preserved."
+                "The S-matrix must be unitary.Hawking radiation must secretly carry information-"
+                "the mechanism is still debated."
+            ),
+        },
+        "choices": [
+            {"id": "trust_unitarity", "label":"Trust unitarity.The information must escape somehow", "next_scene":14},
+            {"id": "embarce_purgatory","label":"Remain at the horizon.Neither lost nor free.", "next_scene":15},
+        ],
+    },
+    {
+        "id": 10,
+        "label": "Scene 4C — The AdS₂ Throat",
+        "act": 3,
+        "text": (
+            "Inside the throat, time is a dimension of space. "
+            "The [[JT gravity]] description takes over — your degrees of freedom are a boundary quantum mechanics. "
+            "You are no longer a particle. You are a [[hologram]]: "
+            "all your information lives on a one-dimensional boundary, "
+            "yet you experience a two-dimensional bulk. "
+            "The information paradox dissolves here. There was never a paradox — only a wrong description."
+        ),
+        "physics_callouts": {
+            "JT gravity": (
+                "Jackiw-Teitelboim gravity is a 2D dilaton gravity theory that exactly describes the near-horizon "
+                "dynamics of extremal black holes. It is exactly solvable and dual to a 1D random matrix model."
+            ),
+            "hologram": (
+                "AdS/CFT: a gravitational theory in d+1 dimensions is equivalent to a conformal field theory on the "
+                "d-dimensional boundary. Information is not lost — it never entered the bulk in the way we imagined."
+            ),
+        },
+        "choices": [
+            {"id": "become_boundary", "label": "Accept the holographic description. Become the boundary.", "next_scene": 14},
+            {"id": "resist_hologram", "label": "Insist on bulk existence. Fight the re-description.","next_scene": 9},
+        ],
+    },
 ]
