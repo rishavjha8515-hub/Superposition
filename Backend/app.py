@@ -2,7 +2,8 @@ from flask import Flask,jsonify,request
 from flask_cors import CORS 
 import numpy as np
 from scipy import integrate
-from uuid,math
+from uuid import math
+from scenes import SCENES
 
 app = Flask(__name__)
 CORS(app)
@@ -317,5 +318,114 @@ SCENES = [
             {"id": "become_boundary", "label": "Accept the holographic description. Become the boundary.", "next_scene": 14},
             {"id": "resist_hologram", "label": "Insist on bulk existence. Fight the re-description.","next_scene": 9},
         ],
+    },
+
+    {
+        "id": 11,
+        "label": "Scene 4D - Kerr-Newmann Transition",
+        "act":3,
+        "text": (
+            "As your spread your code across the horizon,you notice the black hole is spinning."
+            "This is not Reissner-Nordström.It is [[Kerr-Newman]]."
+            "The spin parameter a couples to your code's logical operators."
+            "L_KN = 9.211*10^(-3).A different co-efficient.Smaller."
+            "The Meissner suppression is even stronger for a spinning extremal black hole."
+            "Your code is more protected here than anywhere in the universe."
+        ),
+        "physics_callouts":{
+            "Kerr-Newman":(
+              "The most general charged,rotating black hole solution.Described by mass M,charge Q,angular"
+              "momentum J.Extremality: M^(2) = Q^(2)+(J/M)^2.The near-horizon geometry is still Ads * s^(2),"
+              "but warped by spin."  
+            ),
+        },
+        "choices": [
+            {"id": "exploit_spin", "label": "Use the spin-orbit coupling to further protect your code.", "next_scene":13},
+            {"id": "return_to_rn", "label":"The spin is destablising.Return to the RN geometry.", "next_scene":8},
+        ],
+    },
+
+    {
+        "id":12,
+        "label": "Scene 5-Ending; The Classical Path",
+        "act":4,
+        "ending":True,
+        "ending_id": "classical",
+        "text": (
+            "You follow the classical geodesic to its end."
+            "The singularity. r=0."
+            "Your wavefunction collapses to a point."
+            "The density matrix is diagonal.The off-diagonals are zero."
+            "You have become information about a definite history."
+            "Somewhere,in the Hawking Radiation,a faint correlation carries the memory of your shape."
+            "Not you.But not nothing."
+            "[ ENDING: The classical Path - You chose certainty over coherence.]"
+            "The universe remembers you as a statistic. ]"
+        ),
+        "physics_callouts": {},
+        "choices": [],
+    },
+
+    {
+        "id":13,
+        "label": "Scene 5 - Ending: The Extended Framework",
+        "act": 4,
+        "ending": "extended framework",
+        "text": (
+            "You have found the third channel, integrated the Kerr-Newman correction,"
+            "and extended the Meissner Gap framework beyond its original scope."
+            "The result: a unified decoherence suppression coefficient valid for all extremal black holes."
+            "You are still coherent. Spread across the horizon like a message in a bottle"
+            "that the universe has agreed to protect."
+            "[ENDING: The Extended Framework - You pushed the physics further. "
+            "The Meissner Gap holds, and you hold with it.]"
+        ),
+        "physics_callouts": {},
+        "choices": [],
+    },
+
+    {
+        "id": 14,
+        "label": "Scene 5 - Ending: Unitarity Preserved",
+        "act": 4,
+        "ending": True,
+        "ending_id": "unitarity",
+        "text": (
+            "The Hawking Radiation carries you out - slowly,scrambled,but intact."
+            "[[Page's Theorem]] guarantees it: after the Page time, the radiation is your mirror."
+            "Your are not in the black hole anymore."
+            "You are in the sky,encoded in correlations between photons"
+            "that no single observer will ever collect."
+            "[ ENDING: Unitarity Preserved-Information is conserved."
+            "You escaped as entropy.]"
+        ),
+        "physics_callouts":{
+            "Page's theorem": (
+                "Don Page (1993) showed that for a random unitary evaporation, the entanglement entropy of the "
+                "radiation follows the 'Page curve' — rising then falling — preserving unitarity."
+            ),
+        },
+        "choices":[],
+    },
+
+    {
+        "id": 15,
+        "label": "Scene 5 -Ending: The Horizon Remnant",
+        "act": 4,
+        "ending": True,
+        "ending_id": "remnant",
+        "text": (
+            "You chose neither escape nor dissolution."
+            "The extremal horizon is a perfect insulator of time."
+            "K=0. T_H=0.The black hole does not evaporate."
+            "You remain a quantum state frozen at the boundary of everything,"
+            "neither inside nor outside,neither past nor future."
+            "The universe ages around you.Stars die."
+            "You are still here."
+            "[ENDING: The Horizon Remnant - Extremality is eternal."
+            "The Meissner Gap protected you forever at the cost of forever.]"
+        ),
+        "physics_category":{},
+        "choices": [],
     },
 ]
