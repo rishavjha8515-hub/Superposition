@@ -2,8 +2,9 @@ from flask import Flask,jsonify,request
 from flask_cors import CORS 
 import numpy as np
 from scipy import integrate
-from uuid 
 import math
+import uuid
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -129,8 +130,8 @@ SCENES = [
             ),
         },
         "choices": [
-            {"id": "resist_decohernce", "label":"Fight to maintain coherence.Encode yourself in a surface code.", "next_scene":6},
-            {"id": "embrace_decohernce","label":"Let go.Become classical.", "next_scene":7},
+            {"id": "resist_decoherence", "label":"Fight to maintain coherence.Encode yourself in a surface code.", "next_scene":6},
+            {"id": "embrace_decoherence","label":"Let go.Become classical.", "next_scene":7},
         ],
         },
         {
@@ -289,7 +290,7 @@ SCENES = [
         },
         "choices": [
             {"id": "trust_unitarity", "label":"Trust unitarity.The information must escape somehow", "next_scene":14},
-            {"id": "embarce_purgatory","label":"Remain at the horizon.Neither lost nor free.", "next_scene":15},
+            {"id": "embrace_purgatory","label":"Remain at the horizon.Neither lost nor free.", "next_scene":15},
         ],
     },
     {
@@ -370,7 +371,8 @@ SCENES = [
         "id":13,
         "label": "Scene 5 - Ending: The Extended Framework",
         "act": 4,
-        "ending": "extended framework",
+        "ending": True,
+        "ending_id": "extended_framework",
         "text": (
             "You have found the third channel, integrated the Kerr-Newman correction,"
             "and extended the Meissner Gap framework beyond its original scope."
@@ -433,7 +435,7 @@ SCENES = [
 @app.route("/api/physics", methods=["POST"])
 def physics():
     """Return decoherence data for a given charge ratio q (and optimal alpha)."""
-    data = request.get_json(force=True)
+    data = request.get_json(force=True, silent=True) or {}
     q = float(data.get("q", 0.99))
     alpha = float(data.get("alpha", 0.0))
 
@@ -457,37 +459,106 @@ def get_scene(scene_id):
 @app.route("/api/session", methods=["POST"])
 def create_session():
     """Start a new game session."""
-    import uuid 
     session_id = str(uuid.uuid4())
-    sessions[session_id] = {"current_scene": 1, "history": []}
-    return jsonify({"session_id": session_id, "current_scene": 1})
+    sessions[session_id] = {
+        "current_scene": 1,
+        "history": [],
+        "q": 0.99,
+        "alpha": 0.0,
+        "ended": False,
+        "ending_id": None,
+    }
+    scene = next((s for s in SCENES if s["id"] == 1), None)
+    return jsonify({"session_id": session_id, "scene": scene})
+
+@app.route("/api/session/<session_id>", methods=["GET"])
+def get_session(session_id):
+    """Return current session state plus the active scene and live physics."""
+    session = sessions.get(session_id)
+    if session is None:
+        return jsonify({"error": "Session not found"}), 404
+    scene = next((s for s in SCENES if s["id"] == session["current_scene"]), None)
+    return jsonify({
+        "session_id": session_id,
+        "scene": scene,
+        "history": session["history"],
+        "ended": session["ended"],
+        "ending_id": session["ending_id"],
+        "physics": decoherence_time(session["q"], session["alpha"]),
+    })
 
 @app.route("/api/session/<session_id>/choose", methods=["POST"])
 def make_choice(session_id):
     """Advance the session based on a choice id."""
     if session_id not in sessions:
         return jsonify({"error": "Session not found"}), 404
-    
-    data = request.get_json(force=True)
-    choice_id = data.get("choice_id")
+
     session = sessions[session_id]
+
+    if session["ended"]:
+        return jsonify({"error": "Session has already reached an ending. Start a new session."}), 400
+
+    data = request.get_json(force=True, silent=True) or {}
+    choice_id = data.get("choice_id")
     current = next((s for s in SCENES if s["id"] == session["current_scene"]), None)
 
     if current is None:
         return jsonify({"error": "Invalid scene state"}), 500
-    
+
     choice = next((c for c in current["choices"] if c["id"] == choice_id), None)
     if choice is None:
         return jsonify({"error": f"Unknown choice '{choice_id}'"}), 400
-    
+
+    if "q" in data:
+        try:
+            q = float(data["q"])
+            if 0.0 <= q <= 1.0:
+                session["q"] = q
+        except (TypeError, ValueError):
+            pass
+
+    if "alpha" in data:
+        try:
+            session["alpha"] = float(data["alpha"])
+        except (TypeError, ValueError):
+            pass
+
     session["history"].append(session["current_scene"])
-    session["current_scene"] = choice.get("next_scene", session["current_scene"])
+    next_scene_id = choice.get("next_scene", session["current_scene"])
+    session["current_scene"] = next_scene_id
+
+    next_scene = next((s for s in SCENES if s["id"] == next_scene_id), None)
+    if next_scene and next_scene.get("ending"):
+        session["ended"] = True
+        session["ending_id"] = next_scene.get("ending_id")
 
     return jsonify({
         "session_id": session_id,
-        "current_scene": session["current_scene"],
+        "scene": next_scene,
         "history": session["history"],
+        "ended": session["ended"],
+        "ending_id": session["ending_id"],
+        "physics": decoherence_time(session["q"], session["alpha"]),
     })
 
+@app.route("/api/session/<session_id>/reset", methods=["POST"])
+def reset_session(session_id):
+    """Reset an existing session back to scene 1."""
+    if session_id not in sessions:
+        return jsonify({"error": "Session not found"}), 404
+    sessions[session_id] = {
+        "current_scene": 1,
+        "history": [],
+        "q": 0.99,
+        "alpha": 0.0,
+        "ended": False,
+        "ending_id": None,
+    }
+    scene = next((s for s in SCENES if s["id"] == 1), None)
+    return jsonify({"session_id": session_id, "scene": scene})
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("FLASK_DEBUG", "true").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug)
