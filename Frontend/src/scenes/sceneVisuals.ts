@@ -6,6 +6,7 @@ export interface SceneVisualConfig {
     particleDensity: number;
     particleColor: string;
     vignetteColor: string;
+    diskBrightness: number;
     bloomStrength: number;
     chromaticAberation: number;
     fov: number;
