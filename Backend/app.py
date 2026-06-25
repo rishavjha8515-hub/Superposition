@@ -7,7 +7,10 @@ import uuid
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5173",
+    "https://superposition-alpha.vercel.app"
+])
 
 sessions = {}
 
