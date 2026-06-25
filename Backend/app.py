@@ -76,7 +76,7 @@ SCENES = [
         "text": (
             "You are a photon falling toward a near-extremal Reissner-Nordström Blackhole."
             "The Universe grows very quiet here.Surface gravity(k) goes to zero."
-            "Your decohernce, your loss of quantum self, is suppressed."
+            "Your decoherence, your loss of quantum self, is suppressed."
             "The horizon is a perfect shield.This is the [[Meissner Gap]]"
         ),
         "physics_callouts":{
@@ -94,14 +94,14 @@ SCENES = [
         "label":"Scene 2A-The Quiet Zone ",
         "act":1,
         "text":(
-            "You Hover at the edge of the [[ergosphere analogue]],where time itself seems to pause."
+            "You hover at the edge of the [[ergosphere analogue]],where time itself seems to pause."
             "[[Hawking radiation]] whispers past you-but at near zero temperature."
             "The quanta around you remians entangled.You are still whole."
         ),
         "physics_callouts": {
             "ergosphere analogue": (
                 "In RN spacetime,there is no ergosphere,but near-extremal charge creates an analogue"
-                "trappng zone where outgoing radiation is heavily suppressed."
+                "trapping zone where outgoing radiation is heavily suppressed."
             ),
             "Hawking radiation": (
                 "T_H = k/2pi.At extremality,k approaches zero, so T_H approaches zero."
@@ -249,7 +249,7 @@ SCENES = [
        "label": "Scene 4A - The Missing Channel",
        "act": 3,
        "text": (
-           "You find it.A third decohernce channel- neither gravitational nor electromagnetic -"
+           "You find it.A third decoherence channel- neither gravitational nor electromagnetic -"
            "arising from [[quantum vaccum fluctuations]] in the AdS Throat."
            "Your paper only considered two.This one is smaller,but at extremality it dominates."
            "The [[Meissner suppression]] is even stronger than I calculated."
@@ -276,7 +276,7 @@ SCENES = [
         "text": (
             "You reach the crux.The black hole is evaporating.Your infomation -your quantum state-"
             "is either destroyed ([[Hawking's original claim]]) or encoded in the radiation([[unitarity]])."
-            "The Meissner Gap cahnges the calculation.Near extremality, evaporation nearly stops."
+            "The Meissner Gap changes the calculation.Near extremality, evaporation nearly stops."
             "Your information lingers at the horizon,neither lost or retrieved."
             "A third option.A quantum purgatory."
         ),
@@ -398,7 +398,7 @@ SCENES = [
         "text": (
             "The Hawking Radiation carries you out - slowly,scrambled,but intact."
             "[[Page's theorem]] guarantees it: after the Page time, the radiation is your mirror."
-            "Your are not in the black hole anymore."
+            "You are not in the black hole anymore."
             "You are in the sky,encoded in correlations between photons"
             "that no single observer will ever collect."
             "[ ENDING: Unitarity Preserved-Information is conserved."
