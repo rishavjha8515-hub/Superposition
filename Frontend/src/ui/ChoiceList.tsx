@@ -20,7 +20,7 @@ export function ChoiceList({ choices, disabled, onChoose }: ChoiceListProps) {
             style={{
                 textAlign: "left",
                 padding: "0.85rem 1rem",
-                background: "rgba(255,255,255,0.06)",
+                background: "rgba(255,255,254,0.06)",
                 border: "1px solid rgba(255,255,255,0.14)",
                 borderRadius: "10px",
                 color: "#f0f4f8",
