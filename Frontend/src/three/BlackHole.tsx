@@ -28,9 +28,10 @@ export function BlackHole({ visual }: BlackHoleProps) {
         targets.current.ambientPulse = visual.ambientPulse;
     }, [visual]);
 
-    useFrame((state, delta) => {
+   useFrame((state, delta) => {
     if (!materialRef.current) return;
     const u = materialRef.current.uniforms;
+    if (!u || !u.uTime) return;
 
     u.uTime.value = state.clock.elapsedTime;
     u.uCameraPos.value.copy(camera.position);
