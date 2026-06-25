@@ -38,7 +38,7 @@ export function BlackHole({ visual }: BlackHoleProps) {
 
     const lerpSpeed = Math.min(1, delta * 1.2);
     u.uLensStrength.value = THREE.MathUtils.lerp(u.uLensStrength.value, targets.current.lensStrength, lerpSpeed);
-    u.uLensStrength.value = THREE.MathUtils.lerp(u.uBrightness.value, targets.current.diskBrightness, lerpSpeed);
+    u.uDiskBrightness.value = THREE.MathUtils.lerp(u.uDiskBrightness.value, targets.current.diskBrightness, lerpSpeed);
     u.uAmbientPulse.value = THREE.MathUtils.lerp(u.uAmbientPulse.value, targets.current.ambientPulse, lerpSpeed);
     (u.uDiskColor.value as THREE.Color).lerp(targets.current.diskColor, lerpSpeed);
     });
