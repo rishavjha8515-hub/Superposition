@@ -81,7 +81,7 @@ SCENES = [
         ),
         "physics_callouts":{
             "Surface Gravity k": "k = 2[1-q^2]^(1/2).As q approaches 1,k approaches zero.The black hole's graviataional 'Temperature' vanishes''",
-            "Meissner Gap": "Near Extremality,decoherence rate C(K)=L*Kappa with L=2.1895*10^(-4).Quantum cohernce is prserved close to the horizon."
+            "Meissner Gap": "Near Extremality,decoherence rate C(K)=L*Kappa with L=2.1895*10^(-4).Quantum coherence is preserved close to the horizon."
         },
         "choices": [
             {"id": "approach_slow", "label":"Slow your descent.Stay coherent as long as possible.","next_scene":2},
