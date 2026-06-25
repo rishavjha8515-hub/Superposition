@@ -8,7 +8,7 @@ interface BlackHoleProps {
     visual: SceneVisualConfig;
 }
 
-export function BlackHole({ visual }: BlackHoleProps) {
+export function Blackhole({ visual }: BlackHoleProps) {
     const materialRef = useRef<THREE.ShaderMaterial>(null);
     const { camera } = useThree();
 
