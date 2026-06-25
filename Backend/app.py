@@ -44,10 +44,10 @@ def compute_L(nu2: float = 2.0) -> float:
     result, _ = integrate.quad(integrand, 0, np.inf, limit=200)
     return result
 
-def nu2_from_q(q: float, alpha: float) -> float:
+def nu2_from_q(q: float, alpha: float = 0.0) -> float:
     return 2.0 + 0.50 * alpha * alpha
 
-def decoherence_time(q: float, alpha: float) -> float:
+def decoherence_time(q: float, alpha: float = 0.0) -> dict:
     kappa = kappa_from_q(q)
     nu2 = nu2_from_q(q, alpha)
     L = compute_L(nu2)
@@ -119,7 +119,7 @@ SCENES = [
             "act": 1,
             "text": (
                 "The Horizon rushes toward you. In your refrence frame,nothing dramatic happens -"
-                "the [[equivalence principle]] holds.But your [[decohernce rate]] C(k) is climbing."
+                "the [[equivalence principle]] holds.But your [[decoherence rate]] C(k) is climbing."
                 "The further from extremality your trajectory takes you,the more the environment reads you."
         ),
         "physics_callouts": {
@@ -251,7 +251,7 @@ SCENES = [
        "text": (
            "You find it.A third decohernce channel- neither gravitational nor electromagnetic -"
            "arising from [[quantum vaccum fluctuations]] in the AdS Throat."
-           "My paper only considered two.This one is smaller,but at extremality it dominates."
+           "Your paper only considered two.This one is smaller,but at extremality it dominates."
            "The [[Meissner suppression]] is even stronger than I calculated."
        ),
        "physics_callouts":{
@@ -397,7 +397,7 @@ SCENES = [
         "ending_id": "unitarity",
         "text": (
             "The Hawking Radiation carries you out - slowly,scrambled,but intact."
-            "[[Page's Theorem]] guarantees it: after the Page time, the radiation is your mirror."
+            "[[Page's theorem]] guarantees it: after the Page time, the radiation is your mirror."
             "Your are not in the black hole anymore."
             "You are in the sky,encoded in correlations between photons"
             "that no single observer will ever collect."
@@ -561,7 +561,6 @@ def reset_session(session_id):
     return jsonify({"session_id": session_id, "scene": scene})
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     debug = os.environ.get("FLASK_DEBUG", "true").lower() == "true"
     app.run(host="0.0.0.0", port=port, debug=debug)
