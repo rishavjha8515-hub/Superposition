@@ -28,7 +28,7 @@ export function BlackHole({ visual }: BlackHoleProps) {
         targets.current.ambientPulse = visual.ambientPulse;
     }, [visual]);
 
-   useFrame((state, delta) => {
+useFrame((state, delta) => {
     if (!materialRef.current) return;
     const u = materialRef.current.uniforms;
     if (!u || !u.uTime) return;
@@ -41,7 +41,7 @@ export function BlackHole({ visual }: BlackHoleProps) {
     u.uDiskBrightness.value = THREE.MathUtils.lerp(u.uDiskBrightness.value, targets.current.diskBrightness, lerpSpeed);
     u.uAmbientPulse.value = THREE.MathUtils.lerp(u.uAmbientPulse.value, targets.current.ambientPulse, lerpSpeed);
     (u.uDiskColor.value as THREE.Color).lerp(targets.current.diskColor, lerpSpeed);
-    });
+});
 
     return (
         <mesh>
