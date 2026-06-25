@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import { BlackHole } from "./Blackhole";
+import { BlackHole } from "./BlackHole";
 import { ParticleField } from "./ParticleField";
 import { CameraRig } from "./CameraRig";
 import { PostFX } from "./PostFX";

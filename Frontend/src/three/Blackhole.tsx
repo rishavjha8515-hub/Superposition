@@ -1,7 +1,7 @@
 import { useRef, useMemo, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { createBlackHoleMaterial } from "../three/blackHoleShader";
+import { createBlackHoleMaterial } from "./blackHoleShader";
 import type { SceneVisualConfig } from "../scenes/sceneVisuals";
 
 interface BlackHoleProps {
