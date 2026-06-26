@@ -8,23 +8,23 @@ interface BlackHoleProps {
 }
 
 export function BlackHole({ visual }: BlackHoleProps) {
-  const glowRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (glowRef.current) {
-      const pulse = 1.0 + Math.sin(state.clock.elapsedTime * 0.6) * 0.03 * visual.ambientPulse;
-      glowRef.current.scale.setScalar(pulse);
+    if (groupRef.current) {
+      const pulse = 1.0 + Math.sin(state.clock.elapsedTime * 0.6) * 0.015;
+      groupRef.current.scale.setScalar(pulse);
     }
   });
 
   return (
-    <group>
+    <group ref={groupRef} rotation={[0.4, 0, 0]}>
       <mesh>
         <ringGeometry args={[2.5, 3.8, 128]} />
         <meshBasicMaterial color="#ff4400" side={THREE.DoubleSide} transparent opacity={0.04} />
       </mesh>
 
-      <mesh ref={glowRef}>
+      <mesh>
         <ringGeometry args={[1.9, 2.8, 128]} />
         <meshBasicMaterial color="#ff6600" side={THREE.DoubleSide} transparent opacity={0.15 * visual.diskBrightness} />
       </mesh>
