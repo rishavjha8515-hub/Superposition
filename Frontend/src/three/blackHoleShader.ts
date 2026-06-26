@@ -18,8 +18,8 @@ void main() {
     float pulse = 1.0 + uAmbientPulse * 0.3 * sin(uTime * 0.6);
 
     vec3 col = vec3(0.0);
-    col += uDiskColor * diskGlow * streak * uDiskBrightness * 2.5 * pulse;
-    col += vec3(1.0, 0.95, 0.8) * pow(horizonEdge, 3.0) * 1.5;
+    col += uDiskColor * diskGlow * streak * uDiskBrightness * 1.2 * pulse;
+    col += vec3(1.0, 0.95, 0.8) * pow(horizonEdge, 3.0) * 0.6;
 
     float alpha = step(dist, 1.0);
     gl_FragColor = vec4(col, alpha);

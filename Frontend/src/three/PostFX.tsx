@@ -19,8 +19,8 @@ export function PostFX({ visual }: PostFXProps) {
     return (
         <EffectComposer multisampling={0} enableNormalPass={false}>
             <Bloom 
-            intensity={visual.bloomStrength}
-            luminanceThreshold={0.2}
+            intensity={0.4}
+            luminanceThreshold={0.6}
             luminanceSmoothing={0.4}
             mipmapBlur
             />
