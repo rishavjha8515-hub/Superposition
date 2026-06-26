@@ -87,11 +87,10 @@ const [launched, setLaunched] = useState(false);
             )
           )}
 
-          <PhysicsSlider />
-
         </div>
       </div>
 
+     <PhysicsSlider />
       {loading && !scene && (
         <div
           style={{
