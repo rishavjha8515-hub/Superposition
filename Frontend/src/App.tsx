@@ -12,7 +12,7 @@ function PhysicsSliderInline() {
   const { scene, physics} = useGameStore();
   const [q, setQ] = useState(0.99);
 
-  if (!scene || ![1, 2, 3, 8, 9, 11].includes(scene.id)) return null;
+  if (!scene || ![2, 3, 8, 9, 11].includes(scene.id)) return null;
 
   const extremality = q >= 0.99 ? "Extremal" : q >= 0.9 ? "Near-extremal" : q >= 0.7 ? "Sub-extremal" : "Far from extremal";
     const extremalityColor = q >= 0.99 ? "#7dd3fc" : q >= 0.9 ? "#86efac" : q >= 0.7 ? "#fbbf24" : "#f87171";
