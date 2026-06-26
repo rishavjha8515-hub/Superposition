@@ -68,5 +68,6 @@ export function BlackHole({ visual }: BlackHoleProps) {
         <circleGeometry args={[1.35, 128]} />
         <meshBasicMaterial color="#000000" />
       </mesh>
+     </group>
   );
 }
