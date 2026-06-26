@@ -18,18 +18,6 @@ export function PostFX({ visual }: PostFXProps) {
 
     return (
         <EffectComposer multisampling={0} enableNormalPass={false}>
-            <Bloom 
-            intensity={0.4}
-            luminanceThreshold={0.6}
-            luminanceSmoothing={0.4}
-            mipmapBlur
-            />
-            <ChromaticAberration
-            offset={chroma0ffset.current}
-            blendFunction={BlendFunction.NORMAL}
-            radialModulation={false}
-            modulationOffset={0}
-            />
             <Vignette
             eskil={false}
             offset={0.25}
