@@ -8,63 +8,49 @@ interface BlackHoleProps {
 }
 
 export function BlackHole({ visual }: BlackHoleProps) {
-  const diskRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state, delta) => {
-    if (diskRef.current) diskRef.current.rotation.z += delta * 0.4;
+  useFrame((state) => {
     if (glowRef.current) {
-      const pulse = 1.0 + Math.sin(state.clock.elapsedTime * 0.8) * 0.05 * visual.ambientPulse;
+      const pulse = 1.0 + Math.sin(state.clock.elapsedTime * 0.6) * 0.03 * visual.ambientPulse;
       glowRef.current.scale.setScalar(pulse);
     }
   });
 
-  const diskColor = new THREE.Color(visual.diskColor);
-
   return (
     <group>
       <mesh>
-        <ringGeometry args={[2.2, 4.0, 64]} />
-        <meshBasicMaterial
-          color={diskColor}
-          side={THREE.DoubleSide}
-          transparent
-          opacity={0.08 * visual.diskBrightness}
-        />
+        <ringGeometry args={[2.5, 3.8, 128]} />
+        <meshBasicMaterial color="#ff4400" side={THREE.DoubleSide} transparent opacity={0.04} />
       </mesh>
 
       <mesh ref={glowRef}>
-        <ringGeometry args={[1.9, 2.8, 64]} />
-        <meshBasicMaterial
-          color={diskColor}
-          side={THREE.DoubleSide}
-          transparent
-          opacity={0.25 * visual.diskBrightness}
-        />
-      </mesh>
-
-      <mesh ref={diskRef}>
-        <ringGeometry args={[1.55, 2.1, 64]} />
-        <meshBasicMaterial
-          color={diskColor}
-          side={THREE.DoubleSide}
-          transparent
-          opacity={0.9 * visual.diskBrightness}
-        />
+        <ringGeometry args={[1.9, 2.8, 128]} />
+        <meshBasicMaterial color="#ff6600" side={THREE.DoubleSide} transparent opacity={0.15 * visual.diskBrightness} />
       </mesh>
 
       <mesh>
-        <ringGeometry args={[1.48, 1.58, 64]} />
-        <meshBasicMaterial
-          color="#ffe8b0"
-          side={THREE.DoubleSide}
-          transparent
-          opacity={0.95}
-        />
+        <ringGeometry args={[1.65, 2.0, 128]} />
+        <meshBasicMaterial color="#ff8800" side={THREE.DoubleSide} transparent opacity={0.5 * visual.diskBrightness} />
       </mesh>
 
       <mesh>
-        <circleGeometry args={[1.48, 64]} />
+        <ringGeometry args={[1.52, 1.68, 128]} />
+        <meshBasicMaterial color="#ffe566" side={THREE.DoubleSide} transparent opacity={0.95 * visual.diskBrightness} />
+      </mesh>
+
+      <mesh>
+        <ringGeometry args={[1.49, 1.54, 128]} />
+        <meshBasicMaterial color="#fff8e0" side={THREE.DoubleSide} transparent opacity={1.0} />
+      </mesh>
+
+      <mesh>
+        <ringGeometry args={[1.46, 1.50, 128]} />
+        <meshBasicMaterial color="#ffffff" side={THREE.DoubleSide} transparent opacity={0.9} />
+      </mesh>
+
+      <mesh>
+        <circleGeometry args={[1.46, 128]} />
         <meshBasicMaterial color="#000000" />
       </mesh>
     </group>
