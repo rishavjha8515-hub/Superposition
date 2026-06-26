@@ -52,7 +52,7 @@ useFrame((state, delta) => {
 
     return (
         <mesh>
-            <sphereGeometry args={[4, 64, 64]} />
+            <planeGeometry args={[8, 8]} />
             </mesh>
     );
 }
