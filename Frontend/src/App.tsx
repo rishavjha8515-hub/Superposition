@@ -34,7 +34,6 @@ const [launched, setLaunched] = useState(false);
 
       <TitleCard show={(scene?.id ?? 0) === 1} />
 
-      <PhysicsSlider />
       <div
         style={{
           position: "fixed",
@@ -87,6 +86,8 @@ const [launched, setLaunched] = useState(false);
               />
             )
           )}
+
+          <PhysicsSlider />
 
         </div>
       </div>
