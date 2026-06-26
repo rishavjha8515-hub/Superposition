@@ -6,5 +6,11 @@ export default defineConfig({
     build: {
         outDir: "dist",
         target: "es2019",
+        rollupOptions: {
+            output: {
+                entryFileNames: `assets/[name]-[hash]-v2.js`,
+                chunkFileNames: `assets/[name]-[hash]-v2.js`,
+            }
+        }
     },
 });
