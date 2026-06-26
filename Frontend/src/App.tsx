@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { Scene3D } from "./three/Scene3D";
 import { SceneText } from "./ui/SceneText";
 import { ChoiceList } from "./ui/ChoiceList";
