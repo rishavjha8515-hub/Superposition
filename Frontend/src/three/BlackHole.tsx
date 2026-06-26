@@ -62,9 +62,24 @@ export function BlackHole({ visual }: BlackHoleProps) {
       </mesh>
 
       <mesh>
-        <circleGeometry args={[1.46, 128]} />
+        <ringGeometry args={[1.44, 1.62, 128]} />
+        <meshBasicMaterial color="#ffffff" side={THREE.DoubleSide} transparent opacity={0.15} />
+      </mesh>
+
+      <mesh>
+        <ringGeometry args={[1.40, 1.48, 128]} />
+        <meshBasicMaterial color="#e8f0ff" side={THREE.DoubleSide} transparent opacity={0.35} />
+      </mesh>
+
+      <mesh rotation={[0, 0, Math.PI]}>
+        <ringGeometry args={[1.35, 1.45, 128]} />
+        <meshBasicMaterial color="#fff5e0" side={THREE.DoubleSide} transparent opacity={0.25} />
+      </mesh>
+
+      <mesh>
+        <circleGeometry args={[1.35, 128]} />
         <meshBasicMaterial color="#000000" />
       </mesh>
-    </group>
+     </group>
   );
 }
