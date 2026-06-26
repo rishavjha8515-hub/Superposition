@@ -18,35 +18,47 @@ export function BlackHole({ visual }: BlackHoleProps) {
   });
 
   return (
-    <group ref={groupRef} rotation={[0.4, 0, 0]}>
+    <group ref={groupRef}>
+      <group rotation={[1.3, 0, 0]}>
+        <mesh>
+          <ringGeometry args={[2.5, 4.5, 128]} />
+          <meshBasicMaterial color="#ff4400" side={THREE.DoubleSide} transparent opacity={0.05} />
+        </mesh>
+
+        <mesh>
+          <ringGeometry args={[2.0, 3.2, 128]} />
+          <meshBasicMaterial color="#ff6600" side={THREE.DoubleSide} transparent opacity={0.18 * visual.diskBrightness} />
+        </mesh>
+
+        <mesh>
+          <ringGeometry args={[1.7, 2.2, 128]} />
+          <meshBasicMaterial color="#ff8800" side={THREE.DoubleSide} transparent opacity={0.55 * visual.diskBrightness} />
+        </mesh>
+
+        <mesh>
+          <ringGeometry args={[1.54, 1.72, 128]} />
+          <meshBasicMaterial color="#ffe566" side={THREE.DoubleSide} transparent opacity={0.95 * visual.diskBrightness} />
+        </mesh>
+
+        <mesh>
+          <ringGeometry args={[1.50, 1.56, 128]} />
+          <meshBasicMaterial color="#fff8e0" side={THREE.DoubleSide} transparent opacity={1.0} />
+        </mesh>
+      </group>
+
       <mesh>
-        <ringGeometry args={[2.5, 3.8, 128]} />
-        <meshBasicMaterial color="#ff4400" side={THREE.DoubleSide} transparent opacity={0.04} />
+        <ringGeometry args={[1.46, 1.56, 128]} />
+        <meshBasicMaterial color="#ffffff" side={THREE.DoubleSide} transparent opacity={0.7} />
       </mesh>
 
       <mesh>
-        <ringGeometry args={[1.9, 2.8, 128]} />
-        <meshBasicMaterial color="#ff6600" side={THREE.DoubleSide} transparent opacity={0.15 * visual.diskBrightness} />
+        <ringGeometry args={[1.56, 1.72, 128]} />
+        <meshBasicMaterial color="#ffe8b0" side={THREE.DoubleSide} transparent opacity={0.25} />
       </mesh>
 
       <mesh>
-        <ringGeometry args={[1.65, 2.0, 128]} />
-        <meshBasicMaterial color="#ff8800" side={THREE.DoubleSide} transparent opacity={0.5 * visual.diskBrightness} />
-      </mesh>
-
-      <mesh>
-        <ringGeometry args={[1.52, 1.68, 128]} />
-        <meshBasicMaterial color="#ffe566" side={THREE.DoubleSide} transparent opacity={0.95 * visual.diskBrightness} />
-      </mesh>
-
-      <mesh>
-        <ringGeometry args={[1.49, 1.54, 128]} />
-        <meshBasicMaterial color="#fff8e0" side={THREE.DoubleSide} transparent opacity={1.0} />
-      </mesh>
-
-      <mesh>
-        <ringGeometry args={[1.46, 1.50, 128]} />
-        <meshBasicMaterial color="#ffffff" side={THREE.DoubleSide} transparent opacity={0.9} />
+        <ringGeometry args={[1.72, 2.1, 128]} />
+        <meshBasicMaterial color="#ffcc88" side={THREE.DoubleSide} transparent opacity={0.1} />
       </mesh>
 
       <mesh>
