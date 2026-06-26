@@ -13,6 +13,8 @@ export function BlackHole({ visual }: BlackHoleProps) {
   useFrame((state) => {
     if (groupRef.current) {
       const pulse = 1.0 + Math.sin(state.clock.elapsedTime * 0.6) * 0.015;
+      const qValue = (window as any).__currentQ || 0.99;
+      const hue = Math.floor(qValue * 30);
       groupRef.current.scale.setScalar(pulse);
     }
   });
