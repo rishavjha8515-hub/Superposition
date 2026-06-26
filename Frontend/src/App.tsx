@@ -20,7 +20,7 @@ const [launched, setlaunched] = useState(false);
 
     if (!launched) {
       return <LandingPage onEnter={() => 
-        setLaunched(true);
+        setLaunched(true)
       } />;
     }
 
