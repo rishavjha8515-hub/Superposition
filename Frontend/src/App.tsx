@@ -9,7 +9,7 @@ import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
 
 export default function App() {
-const [launched, setlaunched] = useState(false);
+const [launched, setLaunched] = useState(false);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
