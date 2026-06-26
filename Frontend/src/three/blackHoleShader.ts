@@ -7,10 +7,22 @@ varying vec3 vWorldDir;
 varying vec2 viewportUV;
 
 void main() {
-    vUv = uv;
-    vec4 worldPos = modelMatrix * vec4(positionGeometry, 1.0);
-    vWorldDir = normalize(worldPos.xyz - cameraPosition);
-    gl_Position = projectionMatrix * viewMatrix * worldPos;
+    vec2 uv = vUv * 2.0 - 1.0;
+    float dist = length(uv);
+
+    if (dist > 1.0) discard;
+
+    float horizonEdge = smoothstep(0.85, 1.0, dist);
+    float diskGlow = smoothstep(0.75, 0.85, dist) * (1.0 - smoothstep(0.85, 1.0, dist));
+    float streak = 0.6 + 0.4 * sin(atan(uv.y, uv.x) * 8.0 - uTime * 1.5);
+    float pulse = 1.0 + uAmbientPulse * 0.3 * sin(uTime * 0.6);
+
+    vec3 col = vec3(0.0);
+    col += uDiskColor * diskGlow * streak * uDiskBrightness * 2.5 * pulse;
+    col += vec3(1.0, 0.95, 0.8) * pow(horizonEdge, 3.0) * 1.5;
+
+    float alpha = step(dist, 1.0);
+    gl_FragColor = vec4(col, alpha);
 }
 `;
 
@@ -120,5 +132,7 @@ export function createBlackHoleMaterial(): THREE.ShaderMaterial {
     fragmentShader: blackHoleFragmentShader,
     side: THREE.FrontSide,
     depthWrite: false,
+    depthTest: false,
+    transparent: true,
   });
 }
