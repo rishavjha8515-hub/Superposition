@@ -9,7 +9,7 @@ interface BlackHoleProps {
 }
 
 export function BlackHole({ visual }: BlackHoleProps) {
-    const materialRef = useRef<THREE.ShaderMaterial>(null);
+    const meshRef = useRef<THREE.Mesh>(null);
     const { camera } = useThree();
 
     const material = useMemo(() => createBlackHoleMaterial(), []);
@@ -28,11 +28,18 @@ export function BlackHole({ visual }: BlackHoleProps) {
         targets.current.ambientPulse = visual.ambientPulse;
     }, [visual]);
 
-useFrame((state, delta) => {
-    if (!materialRef.current) return;
-    const u = materialRef.current.uniforms;
-    if (!u || !u.uTime) return;
+    useEffect(() => {
+        if (meshRef.current) {
+            meshRef.current.material = material;
+        }
+    })
 
+useFrame((state, delta) => {
+    if (!meshRef.current) return;
+    const mat = meshRef.current.material as THREE.ShaderMaterial;
+    if (!mat || !mat.uniforms || !mat.uniforms.uTime) return;
+
+    const u = mat.uniforms;
     u.uTime.value = state.clock.elapsedTime;
     u.uCameraPos.value.copy(camera.position);
 
@@ -46,7 +53,6 @@ useFrame((state, delta) => {
     return (
         <mesh>
             <sphereGeometry args={[80, 32, 32]} />
-            <primitive object={material} ref={materialRef} attach="material" />
-        </mesh>
+            </mesh>
     );
 }
