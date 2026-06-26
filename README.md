@@ -11,7 +11,7 @@ You are now a photon. The surface gravity becomes negligible. The process of dec
 | Layer | Tech |
 |-------|------|
 | Frontend | TypeScript / React, deployed on Vercel |
-| Backend | Python / FastAPI, deployed on Render |
+| Backend | Python / Flask, deployed on Render |
 
 ## Research Foundation
 
@@ -25,5 +25,11 @@ Built on original research into the black hole Meissner effect in near-extremal 
 - Black hole thermodynamics
 - Information preservation and loss
 - Quantum state evolution in curved spacetime
+
+## Features
+-Live physics calculation (k, L, C(k), T_H) computed per choice from your charge ratio q
+-15 branching scenes across 4 acts with 4 different endings
+-Tappable physics tooltips on every [[term]] in the narrative
+-First-person orbit camera - drag to look around in the narrative
 
 ## The horizon is waiting. Stay coherent.
