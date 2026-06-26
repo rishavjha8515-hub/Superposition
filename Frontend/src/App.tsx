@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { Scene3D } from "./three/Scene3D";
 import { SceneText } from "./ui/SceneText";
 import { ChoiceList } from "./ui/ChoiceList";
@@ -9,20 +9,19 @@ import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
 
 export default function App() {
+const [launched, setLaunched] = useState(false);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
   useEffect(() => {
-    if (!sessionId) startGame();
-  }, [sessionId, startGame]);
+    if (launched && !sessionId) startGame();
+  }, [launched, sessionId, startGame]);
 
-    const [launched, unlaunched] = useState(false);
 
     if (!launched) {
-      return <LandingPage onEnter={() => {
-        setLaunched(true);
-        startGame();
-      }} />;
+      return <LandingPage onEnter={() => 
+        setLaunched(true)
+      } />;
     }
 
   return (
