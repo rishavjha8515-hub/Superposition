@@ -7,7 +7,7 @@ interface LandingPageProps {
 export function LandingPage({ onEnter }: LandingPageProps) {
   const [visible, setVisible] = useState(false);
   const [entering, setEntering] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
+  const [showInfo, setShowInfo] = useState(true);
   const [infoDismissed, setInfoDismissed] = useState(false);
   const audioRef = useRef<AudioContext | null>(null);
 
@@ -217,7 +217,6 @@ export function LandingPage({ onEnter }: LandingPageProps) {
           Enter the Field
         </button>
 
-        {!infoDismissed && (
           <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
             <button
               onClick={() => setShowInfo(!showInfo)}
@@ -279,7 +278,6 @@ export function LandingPage({ onEnter }: LandingPageProps) {
               </div>
             )}
           </div>
-        )}
 
         <div style={{
           marginTop: "0.8rem",
