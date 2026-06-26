@@ -7,22 +7,24 @@ varying vec3 vWorldDir;
 varying vec2 viewportUV;
 
 void main() {
-    vec2 uv = vUv * 2.0 - 1.0;
-    float dist = length(uv);
+    vec3 dir = normalize(vWorldDir);
 
-    if (dist > 1.0) discard;
+    float angularDist = length(dir.xy) / max(abs(dir.z), 0.001);
+    float dist = length(dir.xy);
 
-    float horizonEdge = smoothstep(0.85, 1.0, dist);
-    float diskGlow = smoothstep(0.75, 0.85, dist) * (1.0 - smoothstep(0.85, 1.0, dist));
-    float streak = 0.6 + 0.4 * sin(atan(uv.y, uv.x) * 8.0 - uTime * 1.5);
-    float pulse = 1.0 + uAmbientPulse * 0.3 * sin(uTime * 0.6);
+    vec3 = vec3(0.0);
 
-    vec3 col = vec3(0.0);
-    col += uDiskColor * diskGlow * streak * uDiskBrightness * 1.2 * pulse;
-    col += vec3(1.0, 0.95, 0.8) * pow(horizonEdge, 3.0) * 0.6;
+       float ring = smoothstep(0.3, 0.5, dist) * (1.0 - smoothstep(0.5, 0.7, dist));
+    float streak = 0.6 + 0.4 * sin(atan(dir.y, dir.x) * 8.0 - uTime * 1.5);
+    float pulse = 1.0 + uAmbientPulse * 0.2 * sin(uTime * 0.6);
+    col += uDiskColor * ring * streak * uDiskBrightness * pulse;
+    
+    float edge = smoothstep(0.65, 0.75, dist) * (1.0 - smoothstep(0.75, 0.85, dist));
+    col += vec3(1.0, 0.9, 0.7) * edge * 0.8;
 
-    float alpha = step(dist, 1.0);
-    gl_FragColor = vec4(col, alpha);
+    if (dist > 0.9) discard;
+
+    gl_FragColor = vec4(col, 1.0);
 }
 `;
 
