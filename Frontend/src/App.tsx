@@ -7,7 +7,6 @@ import { EndingScreen } from "./ui/EndingScreen";
 import { TitleCard } from "./ui/TitleCard";
 import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
-import { PhysicsSlider } from "./ui/PhysicsSlider"
 
 export default function App() {
 const [launched, setLaunched] = useState(false);
@@ -90,7 +89,6 @@ const [launched, setLaunched] = useState(false);
         </div>
       </div>
 
-     <PhysicsSlider />
       {loading && !scene && (
         <div
           style={{
