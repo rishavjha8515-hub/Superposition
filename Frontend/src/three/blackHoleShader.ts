@@ -26,22 +26,12 @@ export const blackHoleFragmentShader = /* glsl */ `
   void main() {
     vec2 p = vUv * 2.0 - 1.0;
     float r = length(p);
-    float angle = atan(p.y, p.x);
-
-    if (r > 1.0) discard;
 
     vec3 col = vec3(0.0);
-
-    float disk = smoothstep(0.55, 0.7, r) * (1.0 - smoothstep(0.7, 0.95, r));
-    float streak = 0.5 + 0.5 * sin(angle * 6.0 - uTime * 2.0);
-    float pulse = 1.0 + uAmbientPulse * 0.3 * sin(uTime * 0.8);
-    col += uDiskColor * disk * streak * uDiskBrightness * pulse;
-
-    float photonRing = smoothstep(0.88, 0.94, r) * (1.0 - smoothstep(0.94, 1.0, r));
-    col += vec3(1.0, 0.92, 0.7) * photonRing * 1.2;
-
-    float rim = pow(r, 8.0) * 0.4;
-    col += uDiskColor * rim;
+    if (r < 0.3) col = vec3(1.0,0.0,0.0);
+    else if (r < 0.6) col = vec3(0.0,1.0,0.0);
+    else if (r < 0.9) col = vec3(0.0,0.0,1.0);
+    else discard;
 
     gl_FragColor = vec4(col, 1.0);
   }
