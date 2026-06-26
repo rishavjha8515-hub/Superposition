@@ -135,6 +135,7 @@ SCENES = [
         "choices": [
             {"id": "resist_decoherence", "label":"Fight to maintain coherence.Encode yourself in a surface code.", "next_scene":6},
             {"id": "embrace_decoherence","label":"Let go.Become classical.", "next_scene":7},
+            {"id": "sense_firewall", "label": "Something feels wrong at the horizon. Investigate.", "next_scene": 20},
         ],
         },
         {
@@ -184,7 +185,7 @@ SCENES = [
             ),
         },
         "choices": [
-            {"id": "enter_throat", "label": "Descend into the AdS₂ throat.",         "next_scene": 10},
+            {"id": "enter_throat", "label": "Descend into the AdS₂ throat.","next_scene": 16},
             {"id": "pull_back",    "label": "Retreat before the geometry traps you.", "next_scene": 4},
         ],
     },
@@ -433,6 +434,14 @@ SCENES = [
         "physics_callouts":{},
         "choices": [],
     },
+    {
+        "id"; 16,
+        "label": "Scene 3E - The Entanglement Web",
+        "act": 2,
+        "text": (
+            "Inside the  AdS₂ throat, you see it. Every Hawking quantum that ever escaped "
+        )
+    }
 ]
 
 @app.route("/api/physics", methods=["POST"])

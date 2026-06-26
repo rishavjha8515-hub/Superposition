@@ -7,11 +7,23 @@ interface LandingPageProps {
 export function LandingPage({ onEnter }: LandingPageProps) {
   const [visible, setVisible] = useState(false);
   const [entering, setEntering] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
+  const [infoDismissed, setInfoDismissed] = useState(false);
   const audioRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
   }, []);
+
+  useEffect(() => {
+    if (!showInfo) {
+      const t = setTimeout(() => {
+        setShowInfo(false);
+        setInfoDismissed(true);
+      }, 5000);
+      return () => clearTimeout(t);
+    }
+  }, [showInfo]);
 
   function startAudio() {
     const ctx = new AudioContext();
@@ -76,7 +88,6 @@ export function LandingPage({ onEnter }: LandingPageProps) {
     shimmerGain.connect(ctx.destination);
     shimmer.start();
 
-    // Store on window so App.tsx can access it later
     (window as any).__audioCtx = ctx;
   }
 
@@ -87,6 +98,8 @@ export function LandingPage({ onEnter }: LandingPageProps) {
   }
 
   return (
+    <>
+      <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
     <div
       style={{
         position: "fixed",
@@ -102,7 +115,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
         pointerEvents: entering ? "none" : "auto",
       }}
     >
-      {/* Subtle star texture */}
+
       <div style={{
         position: "absolute",
         inset: 0,
@@ -204,6 +217,70 @@ export function LandingPage({ onEnter }: LandingPageProps) {
           Enter the Field
         </button>
 
+        {!infoDismissed && (
+          <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+            <button
+              onClick={() => setShowInfo(!showInfo)}
+              style={{
+                width: "28px", height: "28px",
+                borderRadius: "50%",
+                border: "1px solid rgba(125, 211, 252, 0.3)",
+                background: showInfo ? "rgba(125, 211, 252, 0.15)" : "transparent",
+                color: "#7dd3fc", fontSize: "0.75rem", fontWeight: 700,
+                cursor: "pointer", transition: "all 0.2s ease",
+              }}
+            >
+              i
+            </button>
+
+            {showInfo && (
+              <div style={{
+                maxWidth: "300px", textAlign: "center",
+                padding: "1rem 1.2rem",
+                background: "rgba(8, 12, 24, 0.9)",
+                border: "1px solid rgba(125, 211, 252, 0.15)",
+                borderRadius: "12px",
+                backdropFilter: "blur(8px)",
+                animation: "fadeIn 0.3s ease",
+              }}>
+                {/* About */}
+                <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: "#7dd3fc", marginBottom: "0.4rem", textTransform: "uppercase" }}>
+                  About
+                </div>
+                <div style={{ fontSize: "0.78rem", color: "rgba(186,214,235,0.8)", lineHeight: 1.6, marginBottom: "0.9rem" }}>
+                  A narrative physics game based on original black hole research — 
+                  quantum decoherence suppression near extremal Reissner-Nordström black holes. 
+                  21 scenes. 4 endings. Real physics.
+                </div>
+
+                <div style={{ height: "1px", background: "rgba(125,211,252,0.1)", marginBottom: "0.9rem" }} />
+
+                {/* How to play */}
+                <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: "#7dd3fc", marginBottom: "0.5rem", textTransform: "uppercase" }}>
+                  How to Play
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", textAlign: "left" }}>
+                  {[
+                    ["👆", "Tap choices to advance the story"],
+                    ["🔵", "Tap blue terms for physics tooltips"],
+                    ["🌀", "Drag to orbit the black hole"],
+                    ["⚡", "Adjust the charge ratio slider to see live physics"],
+                  ].map(([icon, text]) => (
+                    <div key={text} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
+                      <span style={{ fontSize: "0.8rem" }}>{icon}</span>
+                      <span style={{ fontSize: "0.75rem", color: "rgba(186,214,235,0.7)", lineHeight: 1.5 }}>{text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ marginTop: "0.7rem", fontSize: "0.6rem", color: "rgba(186,214,235,0.3)" }}>
+                  Tap anywhere to dismiss
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         <div style={{
           marginTop: "0.8rem",
           fontSize: "0.6rem",
@@ -214,5 +291,6 @@ export function LandingPage({ onEnter }: LandingPageProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
