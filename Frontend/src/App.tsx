@@ -9,13 +9,13 @@ import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
 
 export default function App() {
-const [launched, unlaunched] = useState(false);
+const [launched, setlaunched] = useState(false);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
   useEffect(() => {
-    if (!sessionId) startGame();
-  }, [sessionId, startGame]);
+    if (launched && !sessionId) startGame();
+  }, [sessionId, startGame, launched]);
 
 
     if (!launched) {
