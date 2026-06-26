@@ -6,6 +6,7 @@ import { PhysicsHUD } from "./ui/PhysicsHUD";
 import { EndingScreen } from "./ui/EndingScreen";
 import { TitleCard } from "./ui/TitleCard";
 import { useGameStore } from "./store/gameStore";
+import { LandingPage } from "./ui/LandingPage";
 
 export default function App() {
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
@@ -14,6 +15,15 @@ export default function App() {
   useEffect(() => {
     if (!sessionId) startGame();
   }, [sessionId, startGame]);
+
+    const [launched, unlaunched] = useState(false);
+
+    if (!launched) {
+      return <LandingPage onEnter={() => {
+        setLaunched(true);
+        startGame();
+      }} />;
+    }
 
   return (
     <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden" }}>
