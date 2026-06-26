@@ -15,13 +15,13 @@ const [launched, setlaunched] = useState(false);
 
   useEffect(() => {
     if (launched && !sessionId) startGame();
-  }, [sessionId, startGame, launched]);
+  }, [launched, sessionId, startGame]);
 
 
     if (!launched) {
-      return <LandingPage onEnter={() => {
+      return <LandingPage onEnter={() => 
         setLaunched(true);
-      }} />;
+      } />;
     }
 
   return (
