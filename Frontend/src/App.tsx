@@ -7,6 +7,7 @@ import { EndingScreen } from "./ui/EndingScreen";
 import { TitleCard } from "./ui/TitleCard";
 import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
+import { PhysicsSlider } from "./ui/PhysicsSlider"
 
 export default function App() {
 const [launched, setLaunched] = useState(false);
@@ -33,6 +34,7 @@ const [launched, setLaunched] = useState(false);
 
       <TitleCard show={(scene?.id ?? 0) === 1} />
 
+      <PhysicsSlider />
       <div
         style={{
           position: "fixed",
