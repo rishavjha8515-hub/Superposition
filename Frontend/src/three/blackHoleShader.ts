@@ -118,7 +118,7 @@ export function createBlackHoleMaterial(): THREE.ShaderMaterial {
     uniforms: uniforms as unknown as Record<string, THREE.IUniform>,
     vertexShader: blackHoleVertexShader,
     fragmentShader: blackHoleFragmentShader,
-    side: THREE.BackSide,
+    side: THREE.FrontSide,
     depthWrite: false,
   });
 }
