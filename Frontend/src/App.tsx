@@ -8,6 +8,7 @@ import { TitleCard } from "./ui/TitleCard";
 import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
 import { EndingsGallery } from "./ui/EndingsGallery";
+import { MiniPuzzle } from "./ui/MiniPuzzle";
 
 function PhysicsSliderInline() {
   const { scene, physics } = useGameStore();
@@ -53,6 +54,8 @@ function PhysicsSliderInline() {
 export default function App() {
   const [launched, setLaunched] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [activePuzzle, setActivePuzzle] = useState<"surface_code" | "page_curve" | "spin_tuner" | null>(null);
+const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
@@ -115,6 +118,15 @@ export default function App() {
               {error}
             </div>
           )}
+
+         {scene && scene.id === 6 && !puzzleSolved[6] && (
+          <MiniPuzzle 
+          type="surface_code"
+          onSolve={() => setPuzzleSolved(p => ({ ...p, 6: true}))}
+          onFail={() => setPuzzleSolved(p => ({ ...p, 6:false }))}
+          onSkip={() => setPuzzleSolved(p => ({ ...p, 6: true}))}
+          />
+         )}
 
           {ended ? (
             <>
