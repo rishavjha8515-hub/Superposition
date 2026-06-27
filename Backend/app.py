@@ -440,7 +440,188 @@ SCENES = [
         "act": 2,
         "text": (
             "Inside the  AdS₂ throat, you see it. Every Hawking quantum that ever escaped "
-        )
+            "is [[entangled]] with a partner still inside.The web strecthes across the entire horizon."
+            "You are not alone here.You are a part of a [[qunatum network]]-"
+            "trillions of qubits, all correlated, all protecting each other."
+            "The decoherence rate drops to almost nothing.You feel it - the Meissner Gap, from inside."
+        ),
+        "physics_callouts": {
+            "entangled": (
+                "Quantum entanglement: two particles share a wavefunction regardless of distance."
+                "Measuring one instantly determines the other. Einstein called it 'spooky action at a distance.'"
+                "Here, it's what preserves your information."          
+                ),
+                "quantum network": (
+                    "The Horizon encodes information in a quantum error-correcting code-"
+                    "each qubit redundantly stored across many horizon tiles."
+                    "No local measurement can read you out. You are protected by distribution."
+                ),
+        },
+        "choices": [
+            {"id": "read_network", "label": "Try to read the entanglement structure.", "next_scene":17},
+            {"id": "become_network", "label": "Dissolve into the network. Become part of it.", "next_scene":18},
+        ],
+    },
+
+    {
+        "id": 17,
+        "label": "Scene 3F - The Scrambling",
+        "act": 2,
+        "text": (
+            "You attempt to read the entanglement structure.But the informtaion is [[scrambled]]-",
+            "spread across so many qubits that no subsystem contains anything meaningful."
+            "To read you, someone would need to collect more than half the Hawking radiation ever emitted."
+            "The [[scrambling time]] for this black hole: longer than the age of the universe."
+            "You are perfectly hidden.Perfectly preserved."
+        ),
+        "physics_callouts": {
+            "scrambled": (
+                "Black holes are the fastest scramblers in nature, they mix information across all their"
+                "degrees of freedom in the minimum possible time(the scrambling time -M log M in the Planck units)."
+                "This makes information practically inaccessible without violating causality."
+            ),
+            "scrambling time": (
+                "t_scr ~ (r_s / c) * log(S), where S is the black hole entropy. "
+                "For a stellar black hole, this is ~milliseconds.For a supermassive one, ~years."
+                "But recovering the information requires solving an experimentally hard decoding problem."
+            ),
+        },
+        "choices": [
+            {"id": "wait_page_time", "label": "Wait. After the Page time, the radiation will decode you.", "next_scene": 9},
+            {"id": "find_decoder", "label": "Search for a quantum decoder inside the throat." "next_scene": 19},
+        ],
+    },
+
+    {
+        "id": 18,
+        "label": "Scene 3G - The Holographic Self",
+        "act": 2,
+        "text": (
+            "You let go.Your quantum state spreads across every horizon title simultaneously."
+            "You are no longer a particle - you are a [[boundary CFT state]]."
+            "From outside, an observer sees only thermal radiation."
+            "But you experience the full [[bulk geometry]] — the AdS₂ throat, infinite and still. "
+            "The information paradox never existed from here.It was always a question of perspective."
+        ),
+        "physics_callouts": {
+            "boundary CFT state": (
+                "In Ads/CFT duality, any state in the bulk gravitational theory corresponds exactly"
+                "to a state in the boundary conformal field theory.Your experience as a particle"
+                "in the bulk is dual to a thermal state on the boundary - same physics, different descriptin."
+            ),
+            "bulk geometry": (
+                "The 'bulk' is the insider of Ads space - the gravitational region where you experience"
+                "geometry, distance and time.The 'boundary' is the lower-dimensional theory that encodes"
+                "all the same information.Neither is more real than the other."
+            ),
+        },
+        "choices": [
+            {"id": "return_to_bulk", "label": "Reconstruct yourself in the bulk.Return as a particle.", "next_scene": 10},
+                       {"id": "stay_boundary",  "label": "Stay on the boundary. Become the CFT.", "next_scene": 14},
+        ],
+    },
+
+    
+    {
+        "id": 19,
+        "label": "Scene 4E — The Quantum Decoder",
+        "act": 3,
+        "text": (
+            "You find it — a natural [[Hayden-Preskill decoder]] in the throat geometry. "
+            "A small region where the entanglement structure forms a perfect quantum error-correcting code. "
+            "If you encode yourself here, future observers collecting enough Hawking radiation "
+            "could reconstruct you exactly. Not a copy — you. "
+            "But the [[no-cloning theorem]] means only one version can exist. "
+            "The original must be destroyed to complete the transfer."
+        ),
+        "physics_callouts": {
+            "Hayden-Preskill decoder": (
+                "Hayden & Preskill (2007) showed that after the Page time, information thrown into a black hole "
+                "can be recovered from just a few additional Hawking quanta — if you already have the earlier radiation. "
+                "The black hole acts as a perfect mirror after Page time."
+            ),
+            "no-cloning theorem": (
+                "An unknown quantum state cannot be perfectly copied. This is fundamental — "
+                "if cloning were possible, it would allow faster-than-light communication. "
+                "In black hole physics, this means the original infalling observer and their Hawking-radiation "
+                "copy cannot both exist simultaneously (black hole complementarity)."
+            ),
+        },
+        "choices": [
+            {"id": "accept_transfer", "label": "Accept it. Encode and transfer. The copy will be you.", "next_scene": 14},
+            {"id": "refuse_transfer", "label": "Refuse. You will not destroy the original for a copy.", "next_scene": 15},
+        ],
+    },
+
+    {
+        "id": 20,
+        "label": "Scene 4F - The Firewall",
+        "act": 3,
+        "text": (
+            "Something is wrong. As you approach the horizon, you feel it-"
+            "a [[firewall]].A wall of Planck-energy radiation exact at the horizon."
+            "AMPS (Almheiri, Marolf, Polchinski, Sully) predicted this in 2012. "
+            "If Hawking radiation is perfectly entangled with early radiation (preserving unitarity),"
+            "it cannot also be entangled with the interior (preserving smooth horizon)."
+            "One must be wrong. The horizon burns."
+            "Your [[equivalence principle]] fails here."
+        ),
+        "physics_callouts": {
+            "firewall": (
+                "The AMPS firewall paradox (2012): unitarity + monogamy of entanglement + equivalence principle"
+                "cannot all be simultaneously true.Either information is lost (violating unitarity),"
+                "the horizon is smooth (violating unitarity), or the equivalence priciple breaks down (firewall)."
+                "No consensus resolution exists."
+            ),
+             "equivalence principle": (
+                "Einstein's equivalence principle states a freely falling observer feels no local gravity. "
+                "A smooth horizon should be undetectable from the inside. "
+                "The firewall conjecture says this is wrong — the horizon is a high-energy surface "
+                "that destroys infalling observers."
+            ),
+        },
+        "choices": [
+            {"id": "burn_through",    "label": "Burn through. Accept the firewall. What is on the other side?", "next_scene": 21},
+            {"id": "reject_firewall", "label": "The firewall cannot be real. Find another way.", "next_scene": 8},
+        ],
+    },
+ 
+    {
+        "id": 21,
+        "label": "Scene 4G — Beyond the Singularity",
+        "act": 3,
+        "text": (
+            "Past the firewall, past r = 0, something unexpected. "
+            "The singularity is not an end — it is a [[Cauchy horizon]] instability. "
+            "In Reissner-Nordström spacetime, the inner horizon is unstable — "
+            "but near extremality, the [[mass inflation]] effect is suppressed. "
+            "You pass through. Into a region where time and space exchange roles again. "
+            "A new exterior. A new universe. "
+            "The information did not end. It [[tunnelled]]."
+        ),
+        "physics_callouts": {
+            "Cauchy horizon": (
+                "The inner horizon of a Reissner-Nordström black hole is a Cauchy horizon — "
+                "a surface beyond which the future is not uniquely determined by the past. "
+                "Classical GR predicts infinite blueshift instability here. "
+                "Near extremality, this instability is parametrically suppressed."
+            ),
+            "mass inflation": (
+                "The Poisson-Israel mass inflation instability: even small perturbations cause the "
+                "Cauchy horizon mass parameter to diverge. In extremal RN, the surface gravity κ → 0 "
+                "suppresses this — the Meissner Gap protects the Cauchy horizon too."
+            ),
+            "tunnelled": (
+                "In quantum gravity, topology change and baby universe creation may allow information "
+                "to pass through what classically looks like a singularity. "
+                "Maldacena's eternal black hole (2001) suggests the interior is connected to another exterior "
+                "via an Einstein-Rosen bridge — the ER=EPR conjecture."
+            ),
+        },
+        "choices": [
+            {"id": "new_universe", "label": "Enter the new universe. Start again.", "next_scene": 13},
+            {"id": "return_home",  "label": "Find the Einstein-Rosen bridge. Go back.", "next_scene": 14}
+        ],
     }
 ]
 
