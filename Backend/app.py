@@ -435,7 +435,7 @@ SCENES = [
         "choices": [],
     },
     {
-        "id"; 16,
+        "id": 16,
         "label": "Scene 3E - The Entanglement Web",
         "act": 2,
         "text": (
