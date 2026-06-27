@@ -488,7 +488,7 @@ SCENES = [
         },
         "choices": [
             {"id": "wait_page_time", "label": "Wait. After the Page time, the radiation will decode you.", "next_scene": 9},
-            {"id": "find_decoder", "label": "Search for a quantum decoder inside the throat." "next_scene": 19},
+            {"id": "find_decoder", "label": "Search for a quantum decoder inside the throat.", "next_scene": 19},
         ],
     },
 
