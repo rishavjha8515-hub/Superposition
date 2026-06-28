@@ -55,13 +55,20 @@ export default function App() {
   const [launched, setLaunched] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
   const [activePuzzle, setActivePuzzle] = useState<"surface_code" | "page_curve" | "spin_turner" | null>(null);
-const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
+  const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
+  const [fadeIn, setFadeIn] = useState(true);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
   useEffect(() => {
     if (launched && !sessionId) startGame();
   }, [launched, sessionId, startGame]);
+
+  useEffect(() => {
+    setFadeIn(false);
+    const t = setTimeout(() => setFadeIn(true), 150);
+    return() => clearTimeout(t);
+  }, [scene?.id]);
 
   if (!launched) {
     return <LandingPage onEnter={() => setLaunched(true)} />;
@@ -90,7 +97,7 @@ const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
           pointerEvents: "none",
         }}
       >
-        <div style={{ pointerEvents: "auto", maxWidth: "560px", margin: "0 auto" }}>
+        <div style={{ pointerEvents: "auto", maxWidth: "560px", margin: "0 auto", opacity: fadeIn ? 1 : 0, transition: "opacity 0.3s ease"}}>
 
           {scene?.label && (
             <div
