@@ -16,7 +16,7 @@ export function ChoiceList({ choices, disabled, onChoose }: ChoiceListProps) {
             <button 
             key={choice.id}
             disabled={disabled}
-            onClick={() =>  { if (navigator.vibrate) navigator.vibrate(50);onChoose(choice.id)}
+            onClick={() =>  { if (navigator.vibrate) navigator.vibrate(50);onChoose(choice.id); }}
             style={{
                 textAlign: "left",
                 padding: "0.85rem 1rem",
