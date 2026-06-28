@@ -110,7 +110,7 @@ SCENES = [
         },
           "choices": [
                 {"id": "observe_radiation", "label":"Observe the faint Hawking quanta escaping.", "next_scene":4},
-                {"id": "probe_horizon", "label":"Probe the structure of the horizon itself.", "next_scene":5},
+                {"id": "probe_horizon", "label":"Probe the structure of the horizon itself.", "next_scene": 5},
             ],
         },
         {
@@ -440,8 +440,8 @@ SCENES = [
         "act": 2,
         "text": (
             "Inside the  AdS₂ throat, you see it. Every Hawking quantum that ever escaped "
-            "is [[entangled]] with a partner still inside.The web strecthes across the entire horizon."
-            "You are not alone here.You are a part of a [[qunatum network]]-"
+            "is [[entangled]] with a partner still inside.The web stretches across the entire horizon."
+            "You are not alone here.You are a part of a [[quantum network]]-"
             "trillions of qubits, all correlated, all protecting each other."
             "The decoherence rate drops to almost nothing.You feel it - the Meissner Gap, from inside."
         ),
@@ -458,7 +458,7 @@ SCENES = [
                 ),
         },
         "choices": [
-            {"id": "read_network", "label": "Try to read the entanglement structure.", "next_scene":17},
+            {"id": "read_network", "label": "Try to read the entanglement structure.", "next_scene": 17},
             {"id": "become_network", "label": "Dissolve into the network. Become part of it.", "next_scene":18},
         ],
     },
