@@ -128,6 +128,23 @@ const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
           />
          )}
 
+         {scene && scene.id === 9 && !puzzleSolved[9] && (
+          <MiniPuzzle
+          type="page_curve"
+          onSolve={() => setPuzzleSolved(p => ({...p, 9: true}))}
+          onFail={() => setPuzzleSolved(p => ({...p, 9: false}))}
+          onSkip={() => setPuzzleSolved(p => ({...p, 9: true}))}
+          />
+         )}
+         {scene && scene.id === 11 && !puzzleSolved[11] && (
+            <MiniPuzzle
+              type="spin_tuner"
+              onSolve={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
+              onFail={() => setPuzzleSolved(p => ({ ...p, 11: false }))}
+              onSkip={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
+            />
+          )}
+
           {ended ? (
             <>
               <EndingScreen endingId={endingId} onRestart={restart} />
