@@ -129,8 +129,8 @@ export default function App() {
          {scene && scene.id === 6 && !puzzleSolved[6] && (
           <MiniPuzzle 
           type="surface_code"
-          onSolve={() => setPuzzleSolved(p => ({ ...p, 6: true}))}
-          onFail={() => setPuzzleSolved(p => ({ ...p, 6:false }))}
+          onSolve={() => { setPuzzleSolved(p => ({ ...p, 6: true})); choose("increase_distance")}}
+          onFail={() => { setPuzzleSolved(p => ({ ...p, 6:false })); choose("hold_distance")}}
           onSkip={() => setPuzzleSolved(p => ({ ...p, 6: true}))}
           />
          )}
@@ -138,16 +138,17 @@ export default function App() {
          {scene && scene.id === 9 && !puzzleSolved[9] && (
           <MiniPuzzle
           type="page_curve"
-          onSolve={() => setPuzzleSolved(p => ({...p, 9: true}))}
-          onFail={() => setPuzzleSolved(p => ({...p, 9: false}))}
+          onSolve={() => { setPuzzleSolved(p => ({...p, 9: true})); choose("trust_unitarity"); }}
+          onFail={() => { setPuzzleSolved(p => ({...p, 9: false})); choose("embrace_purgatory"); }}
           onSkip={() => setPuzzleSolved(p => ({...p, 9: true}))}
           />
          )}
+
          {scene && scene.id === 11 && !puzzleSolved[11] && (
             <MiniPuzzle
               type="spin_turner"
-              onSolve={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
-              onFail={() => setPuzzleSolved(p => ({ ...p, 11: false }))}
+              onSolve={() => { setPuzzleSolved(p => ({ ...p, 11: true })); choose("exploit_spin"); }}
+              onFail={() => { setPuzzleSolved(p => ({ ...p, 11: false })); choose("return_to_n"); }}
               onSkip={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
             />
           )}
