@@ -54,7 +54,7 @@ function PhysicsSliderInline() {
 export default function App() {
   const [launched, setLaunched] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
-  const [activePuzzle, setActivePuzzle] = useState<"surface_code" | "page_curve" | "spin_tuner" | null>(null);
+  const [activePuzzle, setActivePuzzle] = useState<"surface_code" | "page_curve" | "spin_turner" | null>(null);
 const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
@@ -138,7 +138,7 @@ const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
          )}
          {scene && scene.id === 11 && !puzzleSolved[11] && (
             <MiniPuzzle
-              type="spin_tuner"
+              type="spin_turner"
               onSolve={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
               onFail={() => setPuzzleSolved(p => ({ ...p, 11: false }))}
               onSkip={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
