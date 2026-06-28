@@ -468,7 +468,7 @@ SCENES = [
         "label": "Scene 3F - The Scrambling",
         "act": 2,
         "text": (
-            "You attempt to read the entanglement structure.But the informtaion is [[scrambled]]-",
+            "You attempt to read the entanglement structure.But the informtaion is [[scrambled]]-"
             "spread across so many qubits that no subsystem contains anything meaningful."
             "To read you, someone would need to collect more than half the Hawking radiation ever emitted."
             "The [[scrambling time]] for this black hole: longer than the age of the universe."
