@@ -21,9 +21,9 @@ function PhysicsSliderInline() {
 
   return (
     <div style={{
-      position: "fixed", top: "max(env(safe-area-inset-top), 75px)",
-      left: "50%", transform: "translateX(-50%)", zIndex: 6,
-      width: "min(340px, 90vw)", padding: "0.7rem 1rem",
+      position: "fixed", top: "max(env(safe-area-inset-top), 120px)",
+      right: "1rem", left: "auto", transform: "none", zIndex: 6,
+      width: "min(280px, 40vw)", padding: "0.7rem 1rem",
       background: "rgba(8,12,20,0.75)", border: "1px solid rgba(255,255,255,0.08)",
       borderRadius: "12px", backdropFilter: "blur(8px)",
     }}>
