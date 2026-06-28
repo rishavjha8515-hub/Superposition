@@ -57,6 +57,7 @@ export default function App() {
   const [activePuzzle, setActivePuzzle] = useState<"surface_code" | "page_curve" | "spin_turner" | null>(null);
   const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
   const [fadeIn, setFadeIn] = useState(true);
+  const [muted, setMuted] = useState(false);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
@@ -80,6 +81,29 @@ export default function App() {
       <Scene3D sceneId={scene?.id ?? 1} />
 
       <PhysicsHUD physics={physics} />
+
+      <button 
+       onClick={() => {
+        const ctx = (window as any).__audioCtx as AudioContext;
+        if (ctx) {
+          muted ? ctx.resume() : ctx.suspend();
+          setMuted(!muted);
+        }
+       }}
+       style={{
+        position:"fixed", top: "max(env(safe-area-inset-top), 14px)",
+        left: "14px", zIndex: 5,
+        width: "32px", height: "32px",
+        borderRadius: "50%",
+        background: "rgba(8,12,20,0.55)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        color: "rgba(186,214,235,0.7)",
+        fontSize: "0.8rem", cursor: "pointer",
+        backdropFilter: "blur(6px)",
+       }}
+       >
+        {muted ? "🔇" : "🔊"}
+       </button>
 
       <TitleCard show={(scene?.id ?? 0) === 1} />
 
