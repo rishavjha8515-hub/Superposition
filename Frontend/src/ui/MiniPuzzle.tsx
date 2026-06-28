@@ -200,7 +200,7 @@ return (
               height: "100%", borderRadius: "3px",
               width: `${stability * 100}%`,
               background: stabilityColor,
-              transition: "width 0.1ease, background 0.1s ease",
+              transition: "width 0.1 ease, background 0.1s ease",
             }} />
           </div>
         </div>
