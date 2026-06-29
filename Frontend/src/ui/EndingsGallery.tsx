@@ -29,6 +29,20 @@ const ALL_ENDINGS = [
     hint: "Remain at the horizon. Neither lost nor free.",
     color: "#b98bff",
   },
+  {
+    id: "boundary",
+    title: "The Boundary State",
+    description: "You dissolved into the hologram.Information was never in the bulk to begin with.",
+    hint: "Become the CFT. Stay on the boundary of the AdS₂ throat.",
+    color: "#6f6bff",
+  },
+  {
+    id:"new_universe",
+    title:"The New Universe",
+    description: "Extremality is not just a shield.It is a door.",
+    hint: "Burn through the firewall and pass the Cauchy horizon.",
+    color: "#7affe0",
+  }
 ];
 
 interface EndingsGalleryProps {
