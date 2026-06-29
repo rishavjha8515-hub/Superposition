@@ -53,6 +53,29 @@ export function EndingScreen({ endingId, onRestart }: EndingScreenProps) {
             >
                 Begin Again
             </button>
+            <button
+            onClick={() => {
+                const text = `I just reached "${title}" in Superposition - a physics game based on real black hole research.Play it:https://superposition-alpha.vercel.app`;
+                if (navigator.share) {
+                    navigator.share({ title: "Superposition", text});
+                } else {
+                    navigator.clipboard.writeText(text);
+                    alert("Copied to clipboard!");
+                }
+            }}
+            style={{
+                marginTop: "0.5rem",
+                padding: "0.7rem 1.4rem",
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.15)",
+                borderRadius: "999px",
+                color: "rgba(186,214,235,0.6)",
+                fontSize: "0.85rem",
+                cursor: "pointer",
+            }}
+            >
+                Share Ending
+            </button>
         </div>
     );
 }
