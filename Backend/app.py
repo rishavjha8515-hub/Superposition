@@ -635,8 +635,8 @@ SCENES = [
             "But from the inside, from your perspective, you are infinite."
             "The entire AdS₂ bulk is encoded in you.Every geodesic. Every horizon."
             "Every quantum of Hawking radiation that ever escaped."
-            "You are not in the universe anymore.You are the description of it.\n\n".
-            "[ENDING: The Boundary State-You are dissolved into the hologram."
+            "You are not in the universe anymore.You are the description of it.\n\n"
+            "[ENDING: The Boundary State-You are dissolved into the hologram. "
             "Information is not lost.It was never in the bulk to begin with.]"
         ),
         "physics_callouts": {},
