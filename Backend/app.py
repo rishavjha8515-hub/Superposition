@@ -346,7 +346,7 @@ SCENES = [
         },
         "choices": [
             {"id": "exploit_spin", "label": "Use the spin-orbit coupling to further protect your code.", "next_scene":13},
-            {"id": "return_to_rn", "label":"The spin is destablising.Return to the RN geometry.", "next_scene":8},
+            {"id": "return_to_rn", "label":"The spin is destabilising. Return to the RN geometry.", "next_scene":8},
         ],
     },
 
@@ -363,7 +363,7 @@ SCENES = [
             "The density matrix is diagonal.The off-diagonals are zero."
             "You have become information about a definite history."
             "Somewhere,in the Hawking Radiation,a faint correlation carries the memory of your shape."
-            "Not you.But not nothing."
+            "Not you.But not nothing.\n\n"
             "[ ENDING: The classical Path - You chose certainty over coherence.]"
             "The universe remembers you as a statistic. ]"
         ),
@@ -382,7 +382,7 @@ SCENES = [
             "and extended the Meissner Gap framework beyond its original scope."
             "The result: a unified decoherence suppression coefficient valid for all extremal black holes."
             "You are still coherent. Spread across the horizon like a message in a bottle"
-            "that the universe has agreed to protect."
+            "that the universe has agreed to protect.\n\n"
             "[ENDING: The Extended Framework - You pushed the physics further. "
             "The Meissner Gap holds, and you hold with it.]"
         ),
@@ -401,7 +401,7 @@ SCENES = [
             "[[Page's theorem]] guarantees it: after the Page time, the radiation is your mirror."
             "You are not in the black hole anymore."
             "You are in the sky,encoded in correlations between photons"
-            "that no single observer will ever collect."
+            "that no single observer will ever collect.\n\n"
             "[ ENDING: Unitarity Preserved-Information is conserved."
             "You escaped as entropy.]"
         ),
@@ -427,7 +427,7 @@ SCENES = [
             "You remain a quantum state frozen at the boundary of everything,"
             "neither inside nor outside,neither past nor future."
             "The universe ages around you.Stars die."
-            "You are still here."
+            "You are still here.\n\n"
             "[ENDING: The Horizon Remnant - Extremality is eternal."
             "The Meissner Gap protected you forever at the cost of forever.]"
         ),
@@ -506,8 +506,8 @@ SCENES = [
         "physics_callouts": {
             "boundary CFT state": (
                 "In Ads/CFT duality, any state in the bulk gravitational theory corresponds exactly"
-                "to a state in the boundary conformal field theory.Your experience as a particle"
-                "in the bulk is dual to a thermal state on the boundary - same physics, different descriptin."
+                "to a state in the boundary conformal field theory. Your experience as a particle"
+                "in the bulk is dual to a thermal state on the boundary - same physics, different description."
             ),
             "bulk geometry": (
                 "The 'bulk' is the insider of Ads space - the gravitational region where you experience"
@@ -517,7 +517,7 @@ SCENES = [
         },
         "choices": [
             {"id": "return_to_bulk", "label": "Reconstruct yourself in the bulk.Return as a particle.", "next_scene": 10},
-                       {"id": "stay_boundary",  "label": "Stay on the boundary. Become the CFT.", "next_scene": 14},
+                       {"id": "stay_boundary",  "label": "Stay on the boundary. Become the CFT.", "next_scene": 22},
         ],
     },
 
@@ -619,10 +619,49 @@ SCENES = [
             ),
         },
         "choices": [
-            {"id": "new_universe", "label": "Enter the new universe. Start again.", "next_scene": 13},
+            {"id": "new_universe", "label": "Enter the new universe. Start again.", "next_scene": 23},
             {"id": "return_home",  "label": "Find the Einstein-Rosen bridge. Go back.", "next_scene": 14}
         ],
-    }
+    },
+    {
+        "id": 22,
+        "label": "Scene 5 - Ending: The Boundary State",
+        "act": 4,
+        "ending": True,
+        "ending_id": "boundary",
+        "text": (
+            "You stayed on the boundary.You became the CFT."
+            "From the outside,you are indistinguishable from thermal radiation."
+            "But from the inside, from your perspective, you are infinite."
+            "The entire AdS₂ bulk is encoded in you.Every geodesic. Every horizon."
+            "Every quantum of Hawking radiation that ever escaped."
+            "You are not in the universe anymore.You are the description of it.\n\n".
+            "[ENDING: The Boundary State-You are dissolved into the hologram."
+            "Information is not lost.It was never in the bulk to begin with.]"
+        ),
+        "physics_callouts": {},
+        "choices": [],
+    },
+
+    {
+        "id": 23,
+        "label": "Scene 5 — Ending: The New Universe",
+        "act": 4,
+        "ending": True,
+        "ending_id": "new_universe",
+        "text": (
+            "You passed through. The Cauchy horizon, the singularity, the firewall — "
+            "all of it suppressed by the Meissner Gap near extremality. "
+            "On the other side: a new exterior. A new Penrose diagram. "
+            "A universe that has never seen you before. "
+            "Your quantum state arrived intact — tunnelled through what classical GR "
+            "called an end. The information didn't die. It emigrated.\n\n"
+            "[ ENDING: The New Universe — The Meissner Gap protected you through the Cauchy horizon. "
+            "Extremality is not just a shield. It is a door. ]"
+        ),
+        "physics_callouts": {},
+        "choices": [],
+    },
 ]
 
 @app.route("/api/physics", methods=["POST"])
