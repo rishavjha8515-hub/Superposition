@@ -9,6 +9,7 @@ import { useGameStore } from "./store/gameStore";
 import { LandingPage } from "./ui/LandingPage";
 import { EndingsGallery } from "./ui/EndingsGallery";
 import { MiniPuzzle } from "./ui/MiniPuzzle";
+import { ShareButton } from "./ui/ShareButton";
 
 function PhysicsSliderInline() {
   const { scene, physics } = useGameStore();
@@ -206,6 +207,8 @@ export default function App() {
 
         </div>
       </div>
+
+      <ShareButton endingId={endingId} />
 
       {showGallery && (
         <EndingsGallery
