@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef,useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { SceneVisualConfig } from "../scenes/sceneVisuals";
@@ -19,7 +19,7 @@ export function BlackHole({ visual }: BlackHoleProps) {
     targetColor.current = new THREE.Color(visual.diskColor);
   }, [visual.diskColor]);
 
-  useFrame((state) => {
+  useFrame((state,delta ) => {
     if (groupRef.current) {
       const pulse = 1.0 + Math.sin(state.clock.elapsedTime * 0.6) * 0.015 * visual.ambientPulse;
       groupRef.current.scale.setScalar(pulse);
