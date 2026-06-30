@@ -10,6 +10,7 @@ import { LandingPage } from "./ui/LandingPage";
 import { EndingsGallery } from "./ui/EndingsGallery";
 import { MiniPuzzle } from "./ui/MiniPuzzle";
 import { ShareButton } from "./ui/ShareButton";
+import { audioEngine } from "./ui/audioEngine";
 
 function PhysicsSliderInline() {
   const { scene, physics } = useGameStore();
@@ -72,6 +73,10 @@ export default function App() {
     return() => clearTimeout(t);
   }, [scene?.id]);
 
+  useEffect(() => {
+    if (scene) audioEngine.setScene(scene.id);
+  }, [scene?.id]);
+
   if (!launched) {
     return <LandingPage onEnter={() => setLaunched(true)} />;
   }
@@ -83,28 +88,22 @@ export default function App() {
 
       <PhysicsHUD physics={physics} />
 
-      <button 
-       onClick={() => {
-        const ctx = (window as any).__audioCtx as AudioContext;
-        if (ctx) {
-          muted ? ctx.resume() : ctx.suspend();
-          setMuted(!muted);
-        }
-       }}
-       style={{
-        position:"fixed", top: "max(env(safe-area-inset-top), 14px)",
-        left: "14px", zIndex: 5,
-        width: "32px", height: "32px",
-        borderRadius: "50%",
+      <button
+      onClick={() => {
+        const nowMuted = audioEngine.toggleMute();
+        setMuted(nowMuted);
+      }}
+      style={{
+        width: "32px", height: "32px", borderRadius: "50%",
         background: "rgba(8,12,20,0.55)",
         border: "1px solid rgba(255,255,255,0.08)",
         color: "rgba(186,214,235,0.7)",
         fontSize: "0.8rem", cursor: "pointer",
         backdropFilter: "blur(6px)",
-       }}
-       >
-        {muted ? "🔇" : "🔊"}
-       </button>
+      }}
+      >
+         {muted ? "🔇" : "🔊"}
+      </button>
 
       <TitleCard show={(scene?.id ?? 0) === 1} />
 

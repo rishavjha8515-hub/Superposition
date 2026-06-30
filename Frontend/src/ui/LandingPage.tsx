@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { audioEngine } from "./audioEngine";
 
 interface LandingPageProps {
   onEnter: () => void;
@@ -93,7 +94,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
 
   function handleEnter() {
     setEntering(true);
-    startAudio();
+    audioEngine.start();
     setTimeout(() => onEnter(), 800);
   }
 
