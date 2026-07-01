@@ -250,7 +250,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
                 <div style={{ fontSize: "0.78rem", color: "rgba(186,214,235,0.8)", lineHeight: 1.6, marginBottom: "0.9rem" }}>
                   A narrative physics game based on original black hole research — 
                   quantum decoherence suppression near extremal Reissner-Nordström black holes. 
-                  21 scenes. 4 endings. Real physics.
+                  23 scenes. 6 endings. Real physics.
                 </div>
 
                 <div style={{ height: "1px", background: "rgba(125,211,252,0.1)", marginBottom: "0.9rem" }} />
@@ -274,7 +274,7 @@ export function LandingPage({ onEnter }: LandingPageProps) {
                 </div>
 
                 <div style={{ marginTop: "0.7rem", fontSize: "0.6rem", color: "rgba(186,214,235,0.3)" }}>
-                  Tap anywhere to dismiss
+                  Tap on icon button to dismiss
                 </div>
               </div>
             )}
