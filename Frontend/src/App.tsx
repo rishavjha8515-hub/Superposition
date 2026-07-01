@@ -137,7 +137,7 @@ export default function App() {
           {showLeaderboard && (
             <Leaderboard onClose={() => setShowLeaderboard(false)} />
           )}
-          
+
           {scene?.label && (
             <div
               style={{
@@ -187,7 +187,7 @@ export default function App() {
             <MiniPuzzle
               type="spin_turner"
               onSolve={() => { setPuzzleSolved(p => ({ ...p, 11: true })); choose("exploit_spin"); }}
-              onFail={() => { setPuzzleSolved(p => ({ ...p, 11: false })); choose("return_to_n"); }}
+              onFail={() => { setPuzzleSolved(p => ({ ...p, 11: false })); choose("return_to_rn"); }}
               onSkip={() => setPuzzleSolved(p => ({ ...p, 11: true }))}
             />
           )}
