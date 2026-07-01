@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
-const ENIDNG_META: Record<string, {title: string; color: string} > ={
+const ENDING_META: Record<string, {title: string; color: string} > ={
      classical:{ title: "The Classical Path",      color: "#9a9a9a" },
   extended_framework: { title: "The Extended Framework",  color: "#ffe6a8" },
   unitarity: { title: "Unitarity Preserved",     color: "#9fd8ff" },
