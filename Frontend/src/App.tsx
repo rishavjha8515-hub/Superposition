@@ -11,6 +11,7 @@ import { EndingsGallery } from "./ui/EndingsGallery";
 import { MiniPuzzle } from "./ui/MiniPuzzle";
 import { ShareButton } from "./ui/ShareButton";
 import { audioEngine } from "./ui/audioEngine";
+import { Leaderboard } from "./ui/Leaderboard";
 
 function PhysicsSliderInline() {
   const { scene, physics } = useGameStore();
@@ -60,6 +61,7 @@ export default function App() {
   const [puzzleSolved, setPuzzleSolved] = useState<Record<number, boolean>>({});
   const [fadeIn, setFadeIn] = useState(true);
   const [muted, setMuted] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
@@ -105,6 +107,15 @@ export default function App() {
          {muted ? "🔇" : "🔊"}
       </button>
 
+      <button onClick={() => setShowLeaderboard(true)} style={{
+        width: "32px", height: "32px", borderRadius: "50%",
+        background: "rgba(8,12,20,0.55)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        color: "rgba(186,214,235,0.7)",
+        fontSize: "0.75rem", cursor: "pointer",
+        backdropFilter: "blur(6px)",
+      }}>🏆</button>
+
       <TitleCard show={(scene?.id ?? 0) === 1} />
 
       <PhysicsSliderInline />
@@ -123,6 +134,10 @@ export default function App() {
       >
         <div style={{ pointerEvents: "auto", maxWidth: "560px", margin: "0 auto", opacity: fadeIn ? 1 : 0, transition: "opacity 0.3s ease"}}>
 
+          {showLeaderboard && (
+            <Leaderboard onClose={() => setShowLeaderboard(false)} />
+          )}
+          
           {scene?.label && (
             <div
               style={{
