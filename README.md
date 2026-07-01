@@ -2,7 +2,7 @@
 
 You are now a photon. The surface gravity becomes negligible. The process of decoherence — the loss of your quantum identity — is hindered close to the horizon. Each decision that you take creates a new timeline. However, your decoherence would ultimately force you into one timeline only.
 
-"Superposition" illustrates 15 narrative scenarios based on real physical events or thought experiments through graduate-level theoretical physics.
+"Superposition" illustrates 23 narrative scenarios based on real physical events or thought experiments through graduate-level theoretical physics.
 
 **[▶ Play now](https://superposition-alpha.vercel.app)**
 
@@ -28,7 +28,7 @@ Built on original research into the black hole Meissner effect in near-extremal 
 
 ## Features
 -Live physics calculation (k, L, C(k), T_H) computed per choice from your charge ratio q
--15 branching scenes across 4 acts with 4 different endings
+-23 branching scenes across 4 acts with 6 different endings
 -Tappable physics tooltips on every [[term]] in the narrative
 -First-person orbit camera - drag to look around in the narrative
 
