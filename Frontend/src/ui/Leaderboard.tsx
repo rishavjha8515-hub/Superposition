@@ -106,7 +106,7 @@ export function Leaderboard({ onClose }: LeaderboardProps) {
 
             <div style={{ height: "4px", background: "rgba(255,255,255,0.05)", borderRadius: "2px", overflow: "hidden" }}>
               <div style={{
-                height: 100%, borderRadius: "2px",
+                height: "100%", borderRadius: "2px",
                 width: `${pct}%`, background: meta.color,
                 transition: "width 0.3s ease",
                 boxShadow: `0 0 6px ${meta.color}`,
