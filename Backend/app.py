@@ -5,6 +5,7 @@ from scipy import integrate
 import math
 import uuid
 import os
+import json
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -14,12 +15,21 @@ CORS(app, origins=[
 
 sessions = {}
 
-#note: All the equations here refer to my YHSA Paper, which is unavailable for ip reasons and all are approximations, not derived from first princiles.
+leaderboard_data = {
+    "classical": 0,
+    "extended_framework": 0,
+    "unitarity": 0,
+    "remnant": 0,
+    "boundary": 0,
+    "new_universe": 0,
+}
+
+#note: All the equations here refer to my YHSA Paper, which is unavailable for ip reasons and all are approximations, not derived from first principles.
 L1 = 2.1895e-4 #It is computed to error less than 3*10^(-14) 
 
 A1 = math.cos(math.pi * math.sqrt(7/4)) ** 2
 
-LKN = 9.211e-5 #It is the coefficient useed for extremal kerr newmann
+LKN = 9.211e-5 #It is the coefficient used for extremal kerr newmann
 
 def kappa_from_q(q:float) -> float:
     return 2.0 * math.sqrt(max(0.0, 1.0 - q * q))
@@ -80,7 +90,7 @@ SCENES = [
             "The horizon is a perfect shield.This is the [[Meissner Gap]]"
         ),
         "physics_callouts":{
-            "Surface Gravity k": "k = 2[1-q^2]^(1/2).As q approaches 1,k approaches zero.The black hole's graviataional 'Temperature' vanishes''",
+            "Surface Gravity k": "k = 2[1-q^2]^(1/2). As q approaches 1, k approaches zero. The black hole's gravitational 'Temperature' vanishes.",
             "Meissner Gap": "Near Extremality,decoherence rate C(K)=L*Kappa with L=2.1895*10^(-4).Quantum coherence is preserved close to the horizon."
         },
         "choices": [
@@ -94,9 +104,9 @@ SCENES = [
         "label":"Scene 2A-The Quiet Zone ",
         "act":1,
         "text":(
-            "You hover at the edge of the [[ergosphere analogue]],where time itself seems to pause."
-            "[[Hawking radiation]] whispers past you-but at near zero temperature."
-            "The quanta around you remians entangled.You are still whole."
+            "You hover at the edge of the [[ergosphere analogue]], where time itself seems to pause. "
+            "[[Hawking radiation]] whispers past you — but at near zero temperature. "
+            "The quanta around you remains entangled. You are still whole."
         ),
         "physics_callouts": {
             "ergosphere analogue": (
@@ -118,9 +128,9 @@ SCENES = [
             "label":"Scene 2B - Freefall",
             "act": 1,
             "text": (
-                "The Horizon rushes toward you. In your refrence frame,nothing dramatic happens -"
-                "the [[equivalence principle]] holds.But your [[decoherence rate]] C(k) is climbing."
-                "The further from extremality your trajectory takes you,the more the environment reads you."
+                "The horizon rushes toward you. In your reference frame, nothing dramatic happens — "
+                "the [[equivalence principle]] holds. But your [[decoherence rate]] C(k) is climbing. "
+                "The further from extremality your trajectory takes you, the more the environment reads you."
         ),
         "physics_callouts": {
             "equivalence principle": (
@@ -145,7 +155,7 @@ SCENES = [
              "text": (
                  "The Hawking quanta carry faint imprints- [[soft hair]] on the horizon."
                  "Each escaping photon is entangled with a partner trapped inside."
-                 "You begin to read the archive.The information all here, encoded in [[Page time]] correlations."
+                 "You begin to read the archive. The information is all here, encoded in [[Page time]] correlations. "
                  "But something is off.One channel is missing."
              ),
               "physics_callouts": {
@@ -250,19 +260,19 @@ SCENES = [
        "label": "Scene 4A - The Missing Channel",
        "act": 3,
        "text": (
-           "You find it.A third decoherence channel- neither gravitational nor electromagnetic -"
-           "arising from [[quantum vaccum fluctuations]] in the AdS Throat."
-           "Your paper only considered two.This one is smaller,but at extremality it dominates."
-           "The [[Meissner suppression]] is even stronger than I calculated."
+           "You find it. A third decoherence channel — neither gravitational nor electromagnetic — "
+           "arising from [[quantum vacuum fluctuations]] in the AdS throat. "
+           "Your paper only considered two. This one is smaller, but at extremality it dominates. "
+           "The [[Meissner suppression]] is even stronger than calculated."
        ),
        "physics_callouts":{
-           "quantum vaccum fluctuations":(
-               "Zero-point fluctuations of quantum fields contribute to decohernce even at T=0."
-               "Near extremality,the thermal channel shuts off,making vaccum contributions relatively dominant."
+           "quantum vacuum fluctuations":(
+               "Zero-point fluctuations of quantum fields contribute to decoherence even at T=0. "
+               "Near extremality, the thermal channel shuts off, making vacuum contributions relatively dominant."
            ),
-           "Meissner supression": (
-               "C(k): L*kappa with L= 2.1895*10^(-4).The suppression is linear in k near extremality-"
-               "the horizon acts like a superconductor expelling decohernce."
+           "Meissner suppression": (
+               "C(k) = L*kappa with L = 2.1895*10^(-4). The suppression is linear in k near extremality — "
+               "the horizon acts like a superconductor expelling decoherence."
            ),
        },
        "choices":[
@@ -275,16 +285,16 @@ SCENES = [
         "label": "Scene 4B - Information Paradox",
         "act": 3,
         "text": (
-            "You reach the crux.The black hole is evaporating.Your infomation -your quantum state-"
-            "is either destroyed ([[Hawking's original claim]]) or encoded in the radiation([[unitarity]])."
-            "The Meissner Gap changes the calculation.Near extremality, evaporation nearly stops."
-            "Your information lingers at the horizon,neither lost or retrieved."
-            "A third option.A quantum purgatory."
+            "You reach the crux. The black hole is evaporating. Your information — your quantum state — "
+            "is either destroyed ([[Hawking's original claim]]) or encoded in the radiation ([[unitarity]]). "
+            "The Meissner Gap changes the calculation. Near extremality, evaporation nearly stops. "
+            "Your information lingers at the horizon, neither lost nor retrieved. "
+            "A third option. A quantum purgatory."
         ),
         "physics_callouts":{
             "Hawking's original claim": (
-                "In Hawking's 1975 calculation,black hole evaporationis exactly thermal i.e no inormation escapes."
-                "This violates quantum unitarity:pure states cannot evolve into mixed states."
+                "In Hawking's 1975 calculation, black hole evaporation is exactly thermal — no information escapes. "
+                "This violates quantum unitarity: pure states cannot evolve into mixed states."
             ),
             "unitarity":(
                 "Quantum mechanics demands that the total information in a closed system is preserved."
@@ -330,7 +340,7 @@ SCENES = [
         "label": "Scene 4D - Kerr-Newmann Transition",
         "act":3,
         "text": (
-            "As your spread your code across the horizon,you notice the black hole is spinning."
+            "As you spread your code across the horizon, you notice the black hole is spinning. "
             "This is not Reissner-Nordström.It is [[Kerr-Newman]]."
             "The spin parameter a couples to your code's logical operators."
             "L_KN = 9.211*10^(-5).A different co-efficient.Smaller."
@@ -468,11 +478,11 @@ SCENES = [
         "label": "Scene 3F - The Scrambling",
         "act": 2,
         "text": (
-            "You attempt to read the entanglement structure.But the informtaion is [[scrambled]]-"
-            "spread across so many qubits that no subsystem contains anything meaningful."
-            "To read you, someone would need to collect more than half the Hawking radiation ever emitted."
-            "The [[scrambling time]] for this black hole: longer than the age of the universe."
-            "You are perfectly hidden.Perfectly preserved."
+            "You attempt to read the entanglement structure. But the information is [[scrambled]] — "
+            "spread across so many qubits that no subsystem contains anything meaningful. "
+            "To read you, someone would need to collect more than half the Hawking radiation ever emitted. "
+            "The [[scrambling time]] for this black hole: longer than the age of the universe. "
+            "You are perfectly hidden. Perfectly preserved."
         ),
         "physics_callouts": {
             "scrambled": (
@@ -483,7 +493,7 @@ SCENES = [
             "scrambling time": (
                 "t_scr ~ (r_s / c) * log(S), where S is the black hole entropy. "
                 "For a stellar black hole, this is ~milliseconds.For a supermassive one, ~years."
-                "But recovering the information requires solving an experimentally hard decoding problem."
+                "But recovering the information requires solving an exponentially hard decoding problem."
             ),
         },
         "choices": [
@@ -497,22 +507,22 @@ SCENES = [
         "label": "Scene 3G - The Holographic Self",
         "act": 2,
         "text": (
-            "You let go.Your quantum state spreads across every horizon title simultaneously."
-            "You are no longer a particle - you are a [[boundary CFT state]]."
-            "From outside, an observer sees only thermal radiation."
+            "You let go. Your quantum state spreads across every horizon tile simultaneously. "
+            "You are no longer a particle — you are a [[boundary CFT state]]. "
+            "From outside, an observer sees only thermal radiation. "
             "But you experience the full [[bulk geometry]] — the AdS₂ throat, infinite and still. "
-            "The information paradox never existed from here.It was always a question of perspective."
+            "The information paradox never existed from here. It was always a question of perspective."
         ),
         "physics_callouts": {
             "boundary CFT state": (
-                "In Ads/CFT duality, any state in the bulk gravitational theory corresponds exactly"
-                "to a state in the boundary conformal field theory. Your experience as a particle"
-                "in the bulk is dual to a thermal state on the boundary - same physics, different description."
+                "In AdS/CFT duality, any state in the bulk gravitational theory corresponds exactly "
+                "to a state in the boundary conformal field theory. Your experience as a particle "
+                "in the bulk is dual to a thermal state on the boundary — same physics, different description."
             ),
             "bulk geometry": (
-                "The 'bulk' is the insider of Ads space - the gravitational region where you experience"
-                "geometry, distance and time.The 'boundary' is the lower-dimensional theory that encodes"
-                "all the same information.Neither is more real than the other."
+                "The 'bulk' is the interior of AdS space — the gravitational region where you experience "
+                "geometry, distance, and time. The 'boundary' is the lower-dimensional theory that encodes "
+                "all the same information. Neither is more real than the other."
             ),
         },
         "choices": [
@@ -788,6 +798,17 @@ def reset_session(session_id):
     }
     scene = next((s for s in SCENES if s["id"] == 1), None)
     return jsonify({"session_id": session_id, "scene": scene})
+
+@app.route("/api/leaderboard", methods=["GET"])
+def get_leaderboard():
+    return jsonify(leaderboard_data)
+
+@app.route("/api/leaderboard/<ending_id>", methods=["POST"])
+def record_ending(ending_id):
+    if ending_id not in leaderboard_data:
+        return jsonify({"error": "Unknown ending"}), 400
+    leaderboard_data[ending_id] += 1
+    return jsonify(leaderboard_data)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
