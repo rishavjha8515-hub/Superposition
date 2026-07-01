@@ -27,7 +27,7 @@ const SCENE_AUDIO: Record<number, SceneAudioConfig> = {
   18: { droneFreq: 56,  droneGain: 0.22, organGain: 0.09, shimmerGain: 0.025, shimmerFreq: 880, pulseRate: 0.9, filterCutoff: 950  },
   19: { droneFreq: 52,  droneGain: 0.25, organGain: 0.10, shimmerGain: 0.030, shimmerFreq: 1100,pulseRate: 1.3, filterCutoff: 1300 },
   20: { droneFreq: 44,  droneGain: 0.30, organGain: 0.12, shimmerGain: 0.035, shimmerFreq: 1200,pulseRate: 1.5, filterCutoff: 1500 },
-  21: { droneFreq: 42,  droneGain: 0.32, organGain: 0.11, shimmerGain: 0.032, shimmerFreq: 1320,pulseRate: 1.4, filterCutoff: 1400 },
+  21: { droneFreq: 52,  droneGain: 0.32, organGain: 0.11, shimmerGain: 0.032, shimmerFreq: 1320,pulseRate: 1.4, filterCutoff: 1400 },
 
   12: { droneFreq: 40,  droneGain: 0.08, organGain: 0.01, shimmerGain: 0.002, shimmerFreq: 220, pulseRate: 0.1, filterCutoff: 200  }, // classical — near silence
   13: { droneFreq: 88,  droneGain: 0.18, organGain: 0.10, shimmerGain: 0.030, shimmerFreq: 1046,pulseRate: 0.6, filterCutoff: 1200 }, // extended framework — triumphant
