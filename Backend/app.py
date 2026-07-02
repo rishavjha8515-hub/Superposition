@@ -6,6 +6,9 @@ import math
 import uuid
 import os
 import json
+import urllib.request
+import urllib.error
+
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -799,16 +802,56 @@ def reset_session(session_id):
     scene = next((s for s in SCENES if s["id"] == 1), None)
     return jsonify({"session_id": session_id, "scene": scene})
 
+def supabase_request(method, path, body=None):
+    url = f"{SUPABASE_URL}/rest/v1/{path}"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+        "Prefer": "return=representation",
+    }
+    data = json.dumps(body).encode() if body else None
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        return {"error": e.read().decode()}
+
 @app.route("/api/leaderboard", methods=["GET"])
 def get_leaderboard():
-    return jsonify(leaderboard_data)
+    result = supabase_request("GET", "leaderboard?select=ending_id,count&order=count.desc")
+    return jsonify(result)
 
 @app.route("/api/leaderboard/<ending_id>", methods=["POST"])
 def record_ending(ending_id):
-    if ending_id not in leaderboard_data:
+    valid = ["classical","extended_framework","unitarity","remnant","boundary","new_universe"]
+    if ending_id not in valid:
         return jsonify({"error": "Unknown ending"}), 400
-    leaderboard_data[ending_id] += 1
-    return jsonify(leaderboard_data)
+    result = supabase_request("POST", f"leaderboard?ending_id=eq.{ending_id}", None)
+    # Use raw SQL increment via rpc
+    inc = supabase_request("POST", "rpc/increment_ending", {"ending_id_input": ending_id})
+    return jsonify({"ok": True})
+
+@app.route("/api/username", methods=["POST"])
+def save_username():
+    data = request.get_json(force=True, silent=True) or {}
+    username = data.get("username", "").strip()
+    if not username or len(username) > 30:
+        return jsonify({"error": "Invalid username"}), 400
+    result = supabase_request("POST", "players", {"username": username})
+    return jsonify({"ok": True, "username": username})
+
+@app.route("/api/run", methods=["POST"])
+def record_run():
+    data = request.get_json(force=True, silent=True) or {}
+    username = data.get("username")
+    ending_id = data.get("ending_id")
+    if not ending_id:
+        return jsonify({"error": "Missing ending_id"}), 400
+    supabase_request("POST", "runs", {"username": username, "ending_id": ending_id})
+    supabase_request("POST", "rpc/increment_ending", {"ending_id_input": ending_id})
+    return jsonify({"ok": True})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
