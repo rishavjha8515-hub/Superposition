@@ -57,6 +57,13 @@ export const useGameStore = create<GameState>((set, get) => ({
         physics: res.physics,
         loading: false,
       });
+
+              if (res.ended && res.ending_id) {
+          fetch(`${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"}/api/leaderboard/${res.ending_id}`, {
+            method: "POST",
+          }).catch(() => {});
+        }
+        
     } catch (e) {
       set({ error: e instanceof Error ? e.message : "Failed to advance", loading: false });
     }

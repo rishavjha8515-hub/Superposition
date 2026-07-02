@@ -12,6 +12,8 @@ import { MiniPuzzle } from "./ui/MiniPuzzle";
 import { ShareButton } from "./ui/ShareButton";
 import { audioEngine } from "./ui/audioEngine";
 import { Leaderboard } from "./ui/Leaderboard";
+import { Codex } from "./ui/Codex";
+
 
 function PhysicsSliderInline() {
   const { scene, physics } = useGameStore();
@@ -62,6 +64,8 @@ export default function App() {
   const [fadeIn, setFadeIn] = useState(true);
   const [muted, setMuted] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showCodex, setShowCodex] = useState(false);
+  const [visitedScenes, setVisitedScenes] = useState<number[]>([1]);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
 
@@ -77,6 +81,12 @@ export default function App() {
 
   useEffect(() => {
     if (scene) audioEngine.setScene(scene.id);
+  }, [scene?.id]);
+
+  useEffect(() => {
+    if (scene && !visitedScenes.includes(scene.id)) {
+      setVisitedScenes(prev => [...prev, scene.id]);
+    }
   }, [scene?.id]);
 
   if (!launched) {
@@ -107,6 +117,15 @@ export default function App() {
          {muted ? "🔇" : "🔊"}
       </button>
 
+      <div style={{ position: "fixed", top: "max(env(safe-area-inset-top), 14px)", left: "14px", zIndex: 5, display: "flex", gap: "0.4rem", }}>
+         <button onClick={() => setShowCodex(true)} style={{
+         width: "32px", height: "32px", borderRadius: "50%",
+         background: "rgba(8,12,20,0.55)",
+         border: "1px solid rgba(255,255,255,0.08)",
+        color: "rgba(186,214,235,0.7)", fontSize: "0.75rem",
+        cursor: "pointer", backdropFilter: "blur(6px)",
+        }}>📖</button>
+      </div>
       <button onClick={() => setShowLeaderboard(true)} style={{
         width: "32px", height: "32px", borderRadius: "50%",
         background: "rgba(8,12,20,0.55)",
@@ -136,6 +155,13 @@ export default function App() {
 
           {showLeaderboard && (
             <Leaderboard onClose={() => setShowLeaderboard(false)} />
+          )}
+
+          {showCodex && (
+            <Codex 
+            unlockedScenes={visitedScenes}
+            onClose={() => setShowCodex(false)}
+            />
           )}
 
           {scene?.label && (
