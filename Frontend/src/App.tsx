@@ -13,6 +13,7 @@ import { ShareButton } from "./ui/ShareButton";
 import { audioEngine } from "./ui/audioEngine";
 import { Leaderboard } from "./ui/Leaderboard";
 import { Codex } from "./ui/Codex";
+import { UsernameModal } from "./ui/UsernameModal";
 
 
 function PhysicsSliderInline() {
@@ -68,6 +69,10 @@ export default function App() {
   const [visitedScenes, setVisitedScenes] = useState<number[]>([1]);
   const { sessionId, scene, ended, endingId, physics, loading, error, startGame, choose, restart } =
     useGameStore();
+    const [username, setUsername] = useState<string | null>(
+  localStorage.getItem("superposition_username")
+);
+const [showUsernameModal, setShowUsernameModal] = useState(false);
 
   useEffect(() => {
     if (launched && !sessionId) startGame();
@@ -90,8 +95,13 @@ export default function App() {
   }, [scene?.id]);
 
   if (!launched) {
-    return <LandingPage onEnter={() => setLaunched(true)} />;
-  }
+  return <LandingPage onEnter={() => {
+    setLaunched(true);
+    if (!localStorage.getItem("superposition_username")) {
+      setShowUsernameModal(true);
+    }
+  }} />;
+}
 
   return (
     <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden" }}>
@@ -255,6 +265,13 @@ export default function App() {
           currentEndingId={endingId}
           onClose={() => setShowGallery(false)}
           onRestart={() => { setShowGallery(false); restart(); }}
+        />
+      )}
+
+      {showUsernameModal && (
+        <UsernameModal
+          onSave={(name) => { setUsername(name); setShowUsernameModal(false); startGame(); }}
+          onSkip={() => { setShowUsernameModal(false); startGame(); }}
         />
       )}
 

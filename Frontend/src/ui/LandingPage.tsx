@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { audioEngine } from "./audioEngine";
 
 interface LandingPageProps {
@@ -10,14 +10,13 @@ export function LandingPage({ onEnter }: LandingPageProps) {
   const [entering, setEntering] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
   const [infoDismissed, setInfoDismissed] = useState(false);
-  const audioRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
   }, []);
 
   useEffect(() => {
-    if (!showInfo) {
+    if (showInfo) {
       const t = setTimeout(() => {
         setShowInfo(false);
         setInfoDismissed(true);
@@ -25,72 +24,6 @@ export function LandingPage({ onEnter }: LandingPageProps) {
       return () => clearTimeout(t);
     }
   }, [showInfo]);
-
-  function startAudio() {
-    const ctx = new AudioContext();
-    audioRef.current = ctx;
-
-    const drone1 = ctx.createOscillator();
-    const drone1Gain = ctx.createGain();
-    drone1.type = "sine";
-    drone1.frequency.setValueAtTime(40, ctx.currentTime);
-    drone1.frequency.linearRampToValueAtTime(43, ctx.currentTime + 8);
-    drone1.frequency.linearRampToValueAtTime(40, ctx.currentTime + 16);
-    drone1Gain.gain.setValueAtTime(0, ctx.currentTime);
-    drone1Gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 3);
-    drone1.connect(drone1Gain);
-    drone1Gain.connect(ctx.destination);
-    drone1.start();
-
-    const drone2 = ctx.createOscillator();
-    const drone2Gain = ctx.createGain();
-    drone2.type = "sine";
-    drone2.frequency.setValueAtTime(80, ctx.currentTime);
-    drone2.frequency.linearRampToValueAtTime(84, ctx.currentTime + 12);
-    drone2.frequency.linearRampToValueAtTime(80, ctx.currentTime + 24);
-    drone2Gain.gain.setValueAtTime(0, ctx.currentTime);
-    drone2Gain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 4);
-    drone2.connect(drone2Gain);
-    drone2Gain.connect(ctx.destination);
-    drone2.start();
-
-    const organ1 = ctx.createOscillator();
-    const organ1Gain = ctx.createGain();
-    organ1.type = "triangle";
-    organ1.frequency.setValueAtTime(130.81, ctx.currentTime); // C3
-    organ1Gain.gain.setValueAtTime(0, ctx.currentTime);
-    organ1Gain.gain.linearRampToValueAtTime(0.04, ctx.currentTime + 5);
-    organ1Gain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 10);
-    organ1.connect(organ1Gain);
-    organ1Gain.connect(ctx.destination);
-    organ1.start();
-
-    const organ2 = ctx.createOscillator();
-    const organ2Gain = ctx.createGain();
-    organ2.type = "triangle";
-    organ2.frequency.setValueAtTime(196.0, ctx.currentTime); // G3
-    organ2Gain.gain.setValueAtTime(0, ctx.currentTime);
-    organ2Gain.gain.linearRampToValueAtTime(0.03, ctx.currentTime + 6);
-    organ2.connect(organ2Gain);
-    organ2Gain.connect(ctx.destination);
-    organ2.start();
-
-    const shimmer = ctx.createOscillator();
-    const shimmerGain = ctx.createGain();
-    const shimmerFilter = ctx.createBiquadFilter();
-    shimmer.type = "sawtooth";
-    shimmer.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-    shimmerFilter.type = "lowpass";
-    shimmerFilter.frequency.setValueAtTime(600, ctx.currentTime);
-    shimmerGain.gain.setValueAtTime(0, ctx.currentTime);
-    shimmerGain.gain.linearRampToValueAtTime(0.015, ctx.currentTime + 7);
-    shimmer.connect(shimmerFilter);
-    shimmerFilter.connect(shimmerGain);
-    shimmerGain.connect(ctx.destination);
-    shimmer.start();
-
-    (window as any).__audioCtx = ctx;
-  }
 
   function handleEnter() {
     setEntering(true);

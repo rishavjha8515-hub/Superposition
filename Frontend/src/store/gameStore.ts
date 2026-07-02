@@ -58,12 +58,14 @@ export const useGameStore = create<GameState>((set, get) => ({
         loading: false,
       });
 
-              if (res.ended && res.ending_id) {
-          fetch(`${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"}/api/leaderboard/${res.ending_id}`, {
-            method: "POST",
-          }).catch(() => {});
+        if (res.ended && res.ending_id) {
+        const username = localStorage.getItem("superposition_username");
+        fetch(`${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000"}/api/run`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ username, ending_id: res.ending_id }),
+         }).catch(() => {});
         }
-        
     } catch (e) {
       set({ error: e instanceof Error ? e.message : "Failed to advance", loading: false });
     }
