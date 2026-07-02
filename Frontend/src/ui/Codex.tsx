@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 interface CodexEntry {
-    term: string;
-    definition: string;
-    scene: number;
+  term: string;
+  definition: string;
+  scene: number;
 }
 
 const ALL_ENTRIES: CodexEntry[] = [
@@ -31,22 +31,22 @@ const ALL_ENTRIES: CodexEntry[] = [
 ];
 
 interface CodexProps {
-    unlockedScenes: number[];
-    onClose: () => void;
+  unlockedScenes: number[];
+  onClose: () => void;
 }
 
 export function Codex({ unlockedScenes, onClose }: CodexProps) {
-    const [searchTerms, setSearchTerms] = useState<string>('');
-    const [filteredEntries, setFilteredEntries ] = useState<CodexEntry | null>(null);
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<CodexEntry | null>(null);
 
   const unlocked = ALL_ENTRIES.filter(e => unlockedScenes.includes(e.scene));
   const locked = ALL_ENTRIES.filter(e => !unlockedScenes.includes(e.scene));
 
   const filtered = unlocked.filter(e =>
-    e.term.toLowerCase().includes(searchTerms.toLowerCase())
+    e.term.toLowerCase().includes(search.toLowerCase())
   );
 
-   return (
+  return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 20,
       background: "rgba(2,4,10,0.96)",
@@ -72,6 +72,54 @@ export function Codex({ unlockedScenes, onClose }: CodexProps) {
           Close
         </button>
       </div>
-    </div>
-   )
+
+      <input
+        placeholder="Search terms..."
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{
+          width: "100%", padding: "0.6rem 0.8rem",
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "8px", color: "#f0f4f8",
+          fontSize: "0.85rem", outline: "none",
+          marginBottom: "1rem",
+        }}
+      />
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        {filtered.map(entry => (
+          <div
+            key={entry.term}
+            onClick={() => setSelected(selected?.term === entry.term ? null : entry)}
+            style={{
+              padding: "0.8rem 1rem",
+              background: selected?.term === entry.term ? "rgba(125,211,252,0.08)" : "rgba(255,255,255,0.03)",
+              border: `1px solid ${selected?.term === entry.term ? "rgba(125,211,252,0.3)" : "rgba(255,255,255,0.06)"}`,
+              borderRadius: "10px", cursor: "pointer",
+              transition: "all 0.15s ease",
+            }}
+          >
+            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "#7dd3fc" }}>{entry.term}</div>
+            {selected?.term === entry.term && (
+              <div style={{ marginTop: "0.5rem", fontSize: "0.78rem", color: "rgba(186,214,235,0.7)", lineHeight: 1.6 }}>
+                {entry.definition}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {locked.slice(0, 4).map(entry => (
+          <div key={entry.term} style={{
+            padding: "0.8rem 1rem",
+            background: "rgba(255,255,255,0.01)",
+            border: "1px solid rgba(255,255,255,0.03)",
+            borderRadius: "10px", opacity: 0.4,
+          }}>
+            <div style={{ fontSize: "0.85rem", color: "rgba(186,214,235,0.3)" }}>??? — Keep exploring to unlock</div>
+          </div>
+        ))}
+        </div>
+        </div>
+  );
 }
