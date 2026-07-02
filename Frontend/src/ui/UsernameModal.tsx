@@ -63,7 +63,7 @@ export function UsernameModal({ onSave, onSkip }: UsernameModalProps) {
         onKeyDown={(e) => { if (e.key === "Enter") handleSave(); }}
         maxLength={30}
         style={{
-            width: 100%, padding: "0.7rem 0.9rem", 
+            width: "100%", padding: "0.7rem 0.9rem", 
             background: "rgba(255,255,255,0.05)",
             border: "1px solid rgba(125,211,252,0.2)",
             borderRadius: "8px", color: "#f0f4f8", fontSize: "0.9rem",outline: "none", marginBottom: "0.5rem",
