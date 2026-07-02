@@ -127,7 +127,7 @@ const [showUsernameModal, setShowUsernameModal] = useState(false);
          {muted ? "🔇" : "🔊"}
       </button>
 
-      <div style={{ position: "fixed", top: "max(env(safe-area-inset-top), 14px)", left: "14px", zIndex: 5, display: "flex", gap: "0.4rem", }}>
+      <div style={{ position: "fixed", top: "max(env(safe-area-inset-top), 16px)", left: "16px", zIndex: 5, display: "flex", gap: "0.4rem", }}>
          <button onClick={() => setShowCodex(true)} style={{
          width: "32px", height: "32px", borderRadius: "50%",
          background: "rgba(8,12,20,0.55)",
